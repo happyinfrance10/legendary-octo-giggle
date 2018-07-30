@@ -27,10 +27,10 @@ class Sequence(ndb.Model):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        # current_user = users.get_current_user()
-        #if no one is logged in, show a login prompt.
-        # logout_url = users.create_logout_url('/')
-        # login_url = users.create_login_url('/')
+        current_user = users.get_current_user()
+        # if no one is logged in, show a login prompt.
+        logout_url = users.create_logout_url('/')
+        login_url = users.create_login_url('/')
         # people = Person.query().fetch()
         # if current_user:
         #     current_email = current_user.email()
@@ -38,8 +38,9 @@ class MainPage(webapp2.RequestHandler):
         # else:
         #     current_person = None
         templateVars = {
-            # 'login_url': login_url,
-            # 'logout_url': logout_url,
+            'login_url': login_url,
+            'logout_url': logout_url,
+            'current_user': current_user,
         }
         template = env.get_template("templates/home.html")
         self.response.write(template.render(templateVars))

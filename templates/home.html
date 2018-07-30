@@ -5,6 +5,15 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
   </head>
   <body>
+    <ul>
+      <li>Logo</li>
+      {% if current_user %}
+        <li><a href={{logout_url}}>Log Out</a></li>
+      {% else %}
+        <li><a href={{login_url}}>Log In</a></li>
+      {%endif%}
+    </ul>
     Welcome to [insert a name for this thing later]!
+
   </body>
 </html>
