@@ -13,14 +13,6 @@
         <li><a href={{login_url}}>Log In</a></li>
       {%endif%}
     </ul>
-    {% if current_user and not current_person %}
-    <br><br><br>
-    <form action="/create" method="POST">
-      Your Name: <input name ="name"><br>
-      <button>Sign Up</button>
-    </form>
-    <br><br>
-    {% endif %}
     <h1>Test Mainpage</h1>
     <p>Welcome to [insert a name for this thing later]!</p>
   </body>
