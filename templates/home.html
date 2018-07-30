@@ -1,1 +1,31 @@
+<<<<<<< HEAD
 This is a test!
+=======
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NESW Puzzles (working title)</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  </head>
+  <body>
+    <ul>
+      <li>Logo</li>
+      {% if current_user %}
+        <li><a href={{logout_url}}>Log Out</a></li>
+      {% else %}
+        <li><a href={{login_url}}>Log In</a></li>
+      {%endif%}
+    </ul>
+    {% if current_user and not current_person %}
+    <br><br><br>
+    <form action="/create" method="POST">
+      Your Name: <input name ="name"><br>
+      <button>Sign Up</button>
+    </form>
+    <br><br>
+    {% endif %}
+    <h1>Test Mainpage</h1>
+    <p>Welcome to [insert a name for this thing later]!</p>
+  </body>
+</html>
+>>>>>>> 6734a6e1b5236e394a3d4804af718a1a63b68ea8
