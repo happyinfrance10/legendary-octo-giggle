@@ -1,1 +1,22 @@
-This is a test!
+<!DOCTYPE html>
+<title>Google-</title>
+
+<h1>Test Mainpage</h1>
+
+<div>
+  {% if current_user %}
+    Welcome, {{current_user.email()}}!
+    <a href="{{logout_url}}">Log Out</a>
+  {% else %}
+    <a href="{{login_url}}">Log In</a>
+  {% endif %}
+</div>
+
+{% if current_user and not current_person %}
+<br><br><br>
+<form action="/create" method="POST">
+  Your Name: <input name ="name"><br>
+  <button>Sign Up</button>
+</form>
+<br><br>
+{% endif %}
