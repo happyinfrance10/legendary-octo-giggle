@@ -78,6 +78,7 @@ class CreateHandler(webapp2.RequestHandler):
         time.sleep(2)
         self.redirect("/")
 
+<<<<<<< HEAD
 
 class LevelPage(webapp2.RequestHandler):
     def get(self):
@@ -89,6 +90,12 @@ class LevelPage(webapp2.RequestHandler):
             "answer" : answer,
         }
         self.response.write(template.render(templateVars))
+=======
+class Level(webapp2.RequestHandler) :
+    def get(self) :
+        template = env.get_template("templates/level.html")
+        self.response.write(template.render())
+>>>>>>> 39f54cdc531b0857e8fa674b0b08bbe082858771
     # def post(self):
     #     content=self.request.get('content')
     #     current_user = users.get_current_user()
@@ -159,6 +166,10 @@ class LevelPage(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ("/", MainPage),
     ("/create", CreateHandler),
+<<<<<<< HEAD
+=======
+    ("/level", Level),
+>>>>>>> 39f54cdc531b0857e8fa674b0b08bbe082858771
     # ("/sequence", SequencePage),
     # ("/upload_photo", PhotoUploadHandler),
     # ("/photo", PhotoHandler),

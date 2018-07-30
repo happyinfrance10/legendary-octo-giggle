@@ -7,3 +7,22 @@ ul {
 li{
   display: inline;
 }
+
+body {
+    background: powderblue;
+    margin-top: 35px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+#main {
+  background-color: teal;
+  width: 80%;
+  margin: auto;
+  box-shadow: 0px 0px 20px black;
+}
+
+#title {
+  text-align: center;
+  text-decoration: underline;
+}
