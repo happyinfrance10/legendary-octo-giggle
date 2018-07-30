@@ -16,8 +16,10 @@ env = jinja2.Environment(
     autoescape = True
 )
 
-class User(ndb.Model):
-    pass
+class Person(ndb.Model):
+    name = ndb.StringProperty()
+    email = ndb.StringProperty()
+    level = ndb.StringProperty()
 
 class Level(ndb.Model):
     pass
@@ -28,23 +30,50 @@ class Sequence(ndb.Model):
 class MainPage(webapp2.RequestHandler):
     def get(self):
         current_user = users.get_current_user()
-        # if no one is logged in, show a login prompt.
-        logout_url = users.create_logout_url('/')
-        login_url = users.create_login_url('/')
+        people = Person.query().fetch()
+        if current_user:
+            current_email = current_user.email()
+            current_person = Person.query().filter(Person.email == current_email).get()
+        else:
+            current_person = None
+
+        logout_url = users.create_logout_url("/")
+        login_url = users.create_login_url("/")
+
+        templateVars = {
+            "people" : people,
+            "current_user" : current_user,
+            "login_url" : login_url,
+            "logout_url" : logout_url,
+            "current_person" : current_person,
+        }
+        # current_user = users.get_current_user()
+        #if no one is logged in, show a login prompt.
+        # logout_url = users.create_logout_url('/')
+        # login_url = users.create_login_url('/')
         # people = Person.query().fetch()
         # if current_user:
         #     current_email = current_user.email()
         #     current_person=Person.query().filter(Person.email==current_email).get()
         # else:
         #     current_person = None
-        templateVars = {
-            'login_url': login_url,
-            'logout_url': logout_url,
-            'current_user': current_user,
-        }
+            # 'login_url': login_url,
+            # 'logout_url': logout_url,
         template = env.get_template("templates/home.html")
         self.response.write(template.render(templateVars))
 
+class CreateHandler(webapp2.RequestHandler):
+    def post(self):
+        #1 get info from Request
+        name = self.request.get("name")
+        current_user = users.get_current_user()
+        email = current_user.email()
+        #2 Read/write from database
+        person = Person(name=name, email=email)
+        person.put()
+        #3 Render a response
+        time.sleep(2)
+        self.redirect("/")
     # def post(self):
     #     content=self.request.get('content')
     #     current_user = users.get_current_user()
@@ -114,6 +143,7 @@ class MainPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ("/", MainPage),
+    ("/create", CreateHandler)
     # ("/sequence", SequencePage),
     # ("/level", LevelPage),
     # ("/upload_photo", PhotoUploadHandler),
