@@ -21,8 +21,11 @@ class Person(ndb.Model):
     email = ndb.StringProperty()
     level = ndb.StringProperty()
 
-class Level(ndb.Model):
-    pass
+class Question(ndb.Model):
+    question = ndb.StringProperty()
+    answer = ndb.StringProperty()
+    location = ndb.StringProperty()
+    level = ndb.StringProperty()
 
 class Sequence(ndb.Model):
     pass
@@ -74,6 +77,18 @@ class CreateHandler(webapp2.RequestHandler):
         #3 Render a response
         time.sleep(2)
         self.redirect("/")
+
+
+class LevelPage(webapp2.RequestHandler):
+    def get(self):
+        question = self.request.get("question")
+        answer = self.request.get("answer")
+        template = env.get_template("templates/level1.html")
+        templateVars = {
+            "question" : question,
+            "answer" : answer,
+        }
+        self.response.write(template.render(templateVars))
     # def post(self):
     #     content=self.request.get('content')
     #     current_user = users.get_current_user()
@@ -143,9 +158,8 @@ class CreateHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ("/", MainPage),
-    ("/create", CreateHandler)
+    ("/create", CreateHandler),
     # ("/sequence", SequencePage),
-    # ("/level", LevelPage),
     # ("/upload_photo", PhotoUploadHandler),
     # ("/photo", PhotoHandler),
 ], debug=True)
