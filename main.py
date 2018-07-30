@@ -74,6 +74,11 @@ class CreateHandler(webapp2.RequestHandler):
         #3 Render a response
         time.sleep(2)
         self.redirect("/")
+
+class Level(webapp2.RequestHandler) :
+    def get(self) :
+        template = env.get_template("templates/level.html")
+        self.response.write(template.render())
     # def post(self):
     #     content=self.request.get('content')
     #     current_user = users.get_current_user()
@@ -143,7 +148,8 @@ class CreateHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ("/", MainPage),
-    ("/create", CreateHandler)
+    ("/create", CreateHandler),
+    ("/level", Level),
     # ("/sequence", SequencePage),
     # ("/level", LevelPage),
     # ("/upload_photo", PhotoUploadHandler),
