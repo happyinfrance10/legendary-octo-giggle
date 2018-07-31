@@ -18,19 +18,21 @@ env = jinja2.Environment(
 class Person(ndb.Model):
     name = ndb.StringProperty()
     email = ndb.StringProperty()
-    level = ndb.StringProperty()
 
 class Question(ndb.Model):
+    sequence = ndb.StringProperty()
     question = ndb.StringProperty()
     answer = ndb.StringProperty()
-    location = ndb.StringProperty()
+    location = ndb.GeoPtProperty()
+    level_number = ndb.IntegerProperty()
 
-class Level(ndb.Model):
-    levelnumber = ndb.IntegerProperty()
-    question_key = ndb.KeyProperty()
+class Level(ndb.Model): #keeps track of player progress per sequence
+    player_key = ndb.KeyProperty()
+    current_level = ndb.IntegerProperty()
+    sequence = ndb.StringProperty()
 
-class Sequence(ndb.Model):
-    pass
+question1 = Question(sequence="1", question="1010100, nzccfn, 7DB", answer = "Sun Microsystems", location=ndb.GeoPt(0, 0), level_number=1)
+question1.put()
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -69,26 +71,48 @@ class MainPage(webapp2.RequestHandler):
 
 class LevelPage(webapp2.RequestHandler):
     def get(self):
-        levels = Level.query().filter(Level.levelnumber == 1).fetch()
-        for level in levels:
-            question = Question.query().filter(Question.key == level.question_key).get()
-        # question = 'Question' #temporary value for testing
+        # if the person doesn't exist in the database, create a new Person class
+        # with that user's email as the parameter
+
+
+
+        # if the level object with the current person's filter doesn't exist in the database,
+        # create a new level object. set the level to 1 and set the sequence to the key called.
+
+
+        # load the level using the sequence and level_number given from the level object.
+        sequence_key = self.request.get('sequence') # for now sequence_key will display the sequence name
+        urlsafe_key = self.request.get('key')
+        key = ndb.Key(urlsafe=urlsafe_key)
+        question=key.get()
         template = env.get_template("templates/level.html")
         templateVars = {
             "question" : question,
         }
         self.response.write(template.render(templateVars))
 
-    # def post(self):
-    #     content=self.request.get('content')
-    #     current_user = users.get_current_user()
-    #     email = current_user.email()
-    #
-    #     message = Message(email=email, content=content)
-    #     message.put()
-    #
-    #     time.sleep(1)
-    #     self.redirect('/')
+    def post(self):
+        # check if the answers match. increment if yes.
+
+
+
+        # load the level using the sequence and level_number given from the level object.
+        sequence_key = self.request.get('sequence')
+        urlsafe_key = self.request.get('key')
+        key = ndb.Key(urlsafe=urlsafe_key)
+        question=key.get()
+        question = Level.query().filter(Level.levelnumber == 1).fetch()
+        for level in levels:
+            question = Question.query().filter(Question.key == level.question_key).get()
+        template = env.get_template("templates/level.html")
+        templateVars = {
+            "question" : question,
+        }
+        self.response.write(template.render(templateVars))
+
+class SubmitAnswer(webapp2.RequestHandler):
+    def post(self):
+        pass
 
 # class ProfilePage(webapp2.RequestHandler):
 #     def get(self):
