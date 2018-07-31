@@ -4,6 +4,9 @@ api_version: 1
 threadsafe: true
 
 handlers:
+  - url: /javascript
+    static_dir: javascript
+    secure: always
   - url: /images
     static_dir: images
     secure: always

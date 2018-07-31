@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <title>Level</title>
 <link rel="stylesheet" href="stylesheets/levelStyle.css">
-<script>
-  // query selector on submit button.
-  // when answers are correct, toggle the appearance of the nextButton id, and submit id disappears.
-  // if answers are wrong, display a message, but make it disappear when answers are correct.
-</script>
 <div id="title">
   <h1>Sequence 1: Level 1</h1>
 </div>
@@ -16,7 +11,7 @@
   </div>
 
   <div id="question">
-    <p>Question: {{question.question}} </p>
+    <p> {{question.question}} </p>
   </div>
 
   <br>
@@ -108,18 +103,41 @@
   <div id="answerTitle">
     <h2>Solution:</h2>
   </div>
-  <form method="POST" action="/level">
-    <div id="answer">
+    <div id="answer" >
       <textarea rows="9" >Answer</textarea>
     </div>
 
     <div id="submitButton">
       <button>Submit</button>
     </div>
-  </form>
+
+  <!-- MERGE the two messages later :)-->
   <p id="incorrectMessage">Your answer was incorrect.</p>
-  <p id="incorrectMessage">Your answer was correct!</p>
-  <div id="nextButton">
+  <p id="correctMessage">Your answer was correct!</p>
+  <!--Insert following key in the level-->
+  <div id="nextButton" method="GET" action="/level">
     <button>Next Question</button>
   </div>
 </div>
+<script>
+  let submitBtn = document.getElementById('submitButton');
+  let user_answer = document.querySelector('#answer textarea');
+  let incorrectMsg = document.getElementById('incorrectMessage');
+  let correctMsg = document.getElementById('correctMessage');
+  let nextBtn = document.getElementById('nextButton');
+  //OK it's not really jinja but I would like to know how to incorporate
+  // a data value from the ndb into javascript.
+  submitBtn.addEventListener('click', e =>{
+    if(user_answer.value == "{{question.answer}}"){
+      incorrectMsg.style.visibility = "hidden";
+      submitBtn.style.visibility= "hidden";
+      nextBtn.style.visibility="visible";
+      correctMsg.style.visibility="visible";
+    } else {
+      incorrectMsg.style.visibility="visible";
+    }
+  });
+  // query selector on submit button.
+  // when answers are correct, toggle the appearance of the nextButton id, and submit id disappears.
+  // if answers are wrong, display a message, but make it disappear when answers are correct.
+</script>

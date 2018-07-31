@@ -36,10 +36,33 @@ body {
   background-color: teal;
   width: 80%;
   margin: auto;
-  box-shadow: 0px 0px 20px black;
+  box-shadow: 0px 0px 25px black;
 }
 
 #title {
   text-align: center;
   text-decoration: underline;
+}
+
+#logo {
+  margin: auto;
+  text-align: center;
+  background-color: white;
+  height: 250px;
+  width: 85%;
+}
+
+.sequence {
+  text-align: center;
+  background-color: white;
+  border: 2px solid black;
+  width: 200px;
+  height: 500px;
+  margin-left: 120px;
+  border-radius: 25px;
+  display:inline-block;
+}
+
+.spin {
+  transform: rotateZ(720deg);
 }
