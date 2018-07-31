@@ -30,6 +30,7 @@ class Level(ndb.Model): #keeps track of player progress per sequence
     player_key = ndb.KeyProperty()
     current_level = ndb.IntegerProperty()
     sequence = ndb.StringProperty()
+    # correct = ndb.BooleanProperty()
 
 question1 = Question(sequence="1", question="1010100, nzccfn, 7DB", answer = "Sun Microsystems", location=ndb.GeoPt(0, 0), level_number=1)
 question1.put()

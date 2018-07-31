@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <title>Level</title>
 <link rel="stylesheet" href="stylesheets/levelStyle.css">
-
+<script>
+  // query selector on submit button.
+  // when answers are correct, toggle the appearance of the nextButton id, and submit id disappears.
+  // if answers are wrong, display a message, but make it disappear when answers are correct.
+</script>
 <div id="title">
   <h1>Sequence 1: Level 1</h1>
 </div>
@@ -104,15 +108,17 @@
   <div id="answerTitle">
     <h2>Solution:</h2>
   </div>
+  <form method="POST" action="/level">
+    <div id="answer">
+      <textarea rows="9" >Answer</textarea>
+    </div>
 
-  <div id="answer">
-    <textarea rows="9">Answer</textarea>
-  </div>
-
-  <div id="submitButton">
-    <button>Submit</button>
-  </div>
-
+    <div id="submitButton">
+      <button>Submit</button>
+    </div>
+  </form>
+  <p id="incorrectMessage">Your answer was incorrect.</p>
+  <p id="incorrectMessage">Your answer was correct!</p>
   <div id="nextButton">
     <button>Next Question</button>
   </div>
