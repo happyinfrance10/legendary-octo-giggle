@@ -23,7 +23,7 @@ class Person(ndb.Model):
 class Question(ndb.Model):
     question = ndb.StringProperty()
     answer = ndb.StringProperty()
-    location = ndb.StringProperty()
+    location = ndb.GeoPtProperty()
 
 class Level(ndb.Model):
     levelnumber = ndb.IntegerProperty()
@@ -31,6 +31,12 @@ class Level(ndb.Model):
 
 class Sequence(ndb.Model):
     pass
+
+question1 = Question(question="1010100, nzccfn, 7DB", answer = "Sun Microsystems", location=ndb.GeoPt(0, 0))
+question1.put()
+
+level1 = Level(levelnumber = 1, question_key=question1.key)
+level1.put()
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -69,10 +75,9 @@ class MainPage(webapp2.RequestHandler):
 
 class LevelPage(webapp2.RequestHandler):
     def get(self):
-        # levels = Level.query().filter(Level.levelnumber == 1).fetch()
-        # for level in levels:
-        #     question = Question.query().filter(Question.key == level.question_key).get()
-        question = 'Question' #temporary value for testing
+        levels = Level.query().filter(Level.levelnumber == 1).fetch()
+        for level in levels:
+            question = Question.query().filter(Question.key == level.question_key).get()#temporary value for testing
         template = env.get_template("templates/level.html")
         templateVars = {
             "question" : question,
@@ -80,16 +85,9 @@ class LevelPage(webapp2.RequestHandler):
         self.response.write(template.render(templateVars))
 
 
-    # def post(self):
-    #     content=self.request.get('content')
-    #     current_user = users.get_current_user()
-    #     email = current_user.email()
-    #
-    #     message = Message(email=email, content=content)
-    #     message.put()
-    #
-    #     time.sleep(1)
-    #     self.redirect('/')
+class SubmitAnswer(webapp2.RequestHandler):
+    def post(self):
+        pass
 
 # class ProfilePage(webapp2.RequestHandler):
 #     def get(self):
