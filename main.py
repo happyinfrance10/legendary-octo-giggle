@@ -25,7 +25,10 @@ class Question(ndb.Model):
     question = ndb.StringProperty()
     answer = ndb.StringProperty()
     location = ndb.StringProperty()
-    level = ndb.StringProperty()
+
+class Level(ndb.Model):
+    levelnumber = ndb.IntegerProperty()
+    question_key = ndb.KeyProperty()
 
 class Sequence(ndb.Model):
     pass
@@ -78,24 +81,19 @@ class CreateHandler(webapp2.RequestHandler):
         time.sleep(2)
         self.redirect("/")
 
-<<<<<<< HEAD
 
 class LevelPage(webapp2.RequestHandler):
     def get(self):
-        question = self.request.get("question")
-        answer = self.request.get("answer")
-        template = env.get_template("templates/level1.html")
+        levels = Level.query().filter(Level.levelnumber == 1).fetch()
+        for level in levels:
+            question = Question.query().filter(Question.key == level.question_key).get()
+        template = env.get_template("templates/level.html")
         templateVars = {
             "question" : question,
-            "answer" : answer,
         }
         self.response.write(template.render(templateVars))
-=======
-class Level(webapp2.RequestHandler) :
-    def get(self) :
-        template = env.get_template("templates/level.html")
-        self.response.write(template.render())
->>>>>>> 39f54cdc531b0857e8fa674b0b08bbe082858771
+
+
     # def post(self):
     #     content=self.request.get('content')
     #     current_user = users.get_current_user()
@@ -166,10 +164,7 @@ class Level(webapp2.RequestHandler) :
 app = webapp2.WSGIApplication([
     ("/", MainPage),
     ("/create", CreateHandler),
-<<<<<<< HEAD
-=======
-    ("/level", Level),
->>>>>>> 39f54cdc531b0857e8fa674b0b08bbe082858771
+    ("/level", LevelPage)
     # ("/sequence", SequencePage),
     # ("/upload_photo", PhotoUploadHandler),
     # ("/photo", PhotoHandler),
