@@ -18,6 +18,7 @@ env = jinja2.Environment(
 class Person(ndb.Model):
     name = ndb.StringProperty()
     email = ndb.StringProperty()
+    current_level = ndb.IntegerProperty()
 
 class Question(ndb.Model):
     sequence = ndb.StringProperty()
@@ -69,50 +70,46 @@ class MainPage(webapp2.RequestHandler):
         template = env.get_template("templates/home.html")
         self.response.write(template.render(templateVars))
 
+class CreateHandler(webapp2.RequestHandler):
+    def post(self):
+        #1 get info from Request
+        name = self.request.get("name")
+        current_user = users.get_current_user()
+        email = current_user.email()
+        #2 Read/write from database
+        person = Person(name=name, email=email, current_level= 1)
+        person.put()
+        #3 Render a response
+        time.sleep(2)
+        self.redirect("/")
+
 class LevelPage(webapp2.RequestHandler):
     def get(self):
         # if the person doesn't exist in the database, create a new Person class
         # with that user's email as the parameter
-
-
-
         # if the level object with the current person's filter doesn't exist in the database,
         # create a new level object. set the level to 1 and set the sequence to the key called.
 
-
         # load the level using the sequence and level_number given from the level object.
-        sequence_key = self.request.get('sequence') # for now sequence_key will display the sequence name
-        urlsafe_key = self.request.get('key')
-        key = ndb.Key(urlsafe=urlsafe_key)
-        question=key.get()
-        template = env.get_template("templates/level.html")
-        templateVars = {
-            "question" : question,
-        }
-        self.response.write(template.render(templateVars))
-
-    def post(self):
-        # check if the answers match. increment if yes.
-
-
-
-        # load the level using the sequence and level_number given from the level object.
-        sequence_key = self.request.get('sequence')
-        urlsafe_key = self.request.get('key')
-        key = ndb.Key(urlsafe=urlsafe_key)
-        question=key.get()
-        question = Level.query().filter(Level.levelnumber == 1).fetch()
+        # sequence_key = self.request.get('sequence') # for now sequence_key will display the sequence name
+        # urlsafe_key = self.request.get('key')
+        # logging.info(urlsafe_key)
+        # key = ndb.Key(urlsafe=urlsafe_key)
+        # question=key.get()
+        current_level = Person.query().filter(Person.current_level).get()
+        logging.info(current_level)
+        current_user = users.get_current_user()
+        question = Question.query().filter(Question.level_number == current_level).fetch()
         for level in levels:
             question = Question.query().filter(Question.key == level.question_key).get()
         template = env.get_template("templates/level.html")
         templateVars = {
             "question" : question,
+            "current_user" : current_user,
+            "current_level" : current_level,
         }
         self.response.write(template.render(templateVars))
 
-class SubmitAnswer(webapp2.RequestHandler):
-    def post(self):
-        pass
 
 # class ProfilePage(webapp2.RequestHandler):
 #     def get(self):
@@ -172,7 +169,8 @@ class SubmitAnswer(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ("/", MainPage),
-    ("/level", LevelPage)
+    ("/level", LevelPage),
+    ("/create", CreateHandler),
     # ("/sequence", SequencePage),
     # ("/upload_photo", PhotoUploadHandler),
     # ("/photo", PhotoHandler),
