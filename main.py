@@ -6,7 +6,7 @@ import logging
 import time
 
 #may want to use PIL images for uploading images
-
+print(Hello, World!)
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
@@ -24,30 +24,14 @@ class Person(ndb.Model):
 class Question(ndb.Model):
     question = ndb.StringProperty()
     answer = ndb.StringProperty()
-    level = ndb.IntegerProperty()
-    #determines where the question is in the sequence, e.g. 1 in a 10-question sequence
+    location = ndb.StringProperty()
+
+class Level(ndb.Model):
+    levelnumber = ndb.IntegerProperty()
+    question_key = ndb.KeyProperty()
 
 class Sequence(ndb.Model):
-    name = ndb.StringProperty()
-    questions = ndb.StructuredProperty(Question, repeated=True)
-    #defines the question property as a list of questions
-    description = ndb.StringProperty()
-    rating = ndb.FloatProperty()
-    difficulty = ndb.FloatProperty()
-
-question1 = Question(
-    question = '1010100, nzccfn, 7DB',
-    answer = 'Sun Microsystems',
-    level = 1
-)
-
-sequenceA = Sequence(
-    name = "Tech Companies"
-    questions = [question1],
-    description = "Learn about the tech companies of the world!",
-    rating = 5.00,
-    difficulty = 5.00,
-)
+    pass
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -83,22 +67,33 @@ class MainPage(webapp2.RequestHandler):
             # 'logout_url': logout_url,
         template = env.get_template("templates/home.html")
         self.response.write(template.render(templateVars))
-# Which one are we using????
+
+class CreateHandler(webapp2.RequestHandler):
+    def post(self):
+        #1 get info from Request
+        name = self.request.get("name")
+        current_user = users.get_current_user()
+        email = current_user.email()
+        #2 Read/write from database
+        person = Person(name=name, email=email)
+        person.put()
+        #3 Render a response
+        time.sleep(2)
+        self.redirect("/")
+
+
 class LevelPage(webapp2.RequestHandler):
     def get(self):
-        question = self.request.get("question")
-        answer = self.request.get("answer")
-        template = env.get_template("templates/level1.html")
+        levels = Level.query().filter(Level.levelnumber == 1).fetch()
+        for level in levels:
+            question = Question.query().filter(Question.key == level.question_key).get()
+        template = env.get_template("templates/level.html")
         templateVars = {
             "question" : question,
-            "answer" : answer,
         }
         self.response.write(template.render(templateVars))
 
-class Level(webapp2.RequestHandler) :
-    def get(self) :
-        template = env.get_template("templates/level.html")
-        self.response.write(template.render())
+
     # def post(self):
     #     content=self.request.get('content')
     #     current_user = users.get_current_user()
@@ -168,8 +163,8 @@ class Level(webapp2.RequestHandler) :
 
 app = webapp2.WSGIApplication([
     ("/", MainPage),
-    ("/levelpage", LevelPage),
-    ("/level", Level),
+    ("/create", CreateHandler),
+    ("/level", LevelPage)
     # ("/sequence", SequencePage),
     # ("/upload_photo", PhotoUploadHandler),
     # ("/photo", PhotoHandler),
