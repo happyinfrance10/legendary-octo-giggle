@@ -82,6 +82,8 @@ class LevelPage(webapp2.RequestHandler):
 
 
         # load the level using the sequence and level_number given from the level object.
+
+        # load the key for the next level in the sequence, based on the current user's progress.
         sequence_key = self.request.get('sequence') # for now sequence_key will display the sequence name
         urlsafe_key = self.request.get('key')
         key = ndb.Key(urlsafe=urlsafe_key)
@@ -91,29 +93,6 @@ class LevelPage(webapp2.RequestHandler):
             "question" : question,
         }
         self.response.write(template.render(templateVars))
-
-    def post(self):
-        # check if the answers match. increment if yes.
-
-
-
-        # load the level using the sequence and level_number given from the level object.
-        sequence_key = self.request.get('sequence')
-        urlsafe_key = self.request.get('key')
-        key = ndb.Key(urlsafe=urlsafe_key)
-        question=key.get()
-        question = Level.query().filter(Level.levelnumber == 1).fetch()
-        for level in levels:
-            question = Question.query().filter(Question.key == level.question_key).get()
-        template = env.get_template("templates/level.html")
-        templateVars = {
-            "question" : question,
-        }
-        self.response.write(template.render(templateVars))
-
-class SubmitAnswer(webapp2.RequestHandler):
-    def post(self):
-        pass
 
 # class ProfilePage(webapp2.RequestHandler):
 #     def get(self):
