@@ -41,6 +41,8 @@ body {
   border: 2px solid black;
   height: 123px;
   background-color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 #submitButton {
