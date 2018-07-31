@@ -24,14 +24,30 @@ class Person(ndb.Model):
 class Question(ndb.Model):
     question = ndb.StringProperty()
     answer = ndb.StringProperty()
-    location = ndb.StringProperty()
-
-class Level(ndb.Model):
-    levelnumber = ndb.IntegerProperty()
-    question_key = ndb.KeyProperty()
+    level = ndb.IntegerProperty()
+    #determines where the question is in the sequence, e.g. 1 in a 10-question sequence
 
 class Sequence(ndb.Model):
-    pass
+    name = ndb.StringProperty()
+    questions = ndb.StructuredProperty(Question, repeated=True)
+    #defines the question property as a list of questions
+    description = ndb.StringProperty()
+    rating = ndb.FloatProperty()
+    difficulty = ndb.FloatProperty()
+
+question1 = Question(
+    question = '1010100, nzccfn, 7DB',
+    answer = 'Sun Microsystems',
+    level = 1
+)
+
+sequenceA = Sequence(
+    name = "Tech Companies"
+    questions = [question1],
+    description = "Learn about the tech companies of the world!",
+    rating = 5.00,
+    difficulty = 5.00,
+)
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -67,33 +83,22 @@ class MainPage(webapp2.RequestHandler):
             # 'logout_url': logout_url,
         template = env.get_template("templates/home.html")
         self.response.write(template.render(templateVars))
-
-class CreateHandler(webapp2.RequestHandler):
-    def post(self):
-        #1 get info from Request
-        name = self.request.get("name")
-        current_user = users.get_current_user()
-        email = current_user.email()
-        #2 Read/write from database
-        person = Person(name=name, email=email)
-        person.put()
-        #3 Render a response
-        time.sleep(2)
-        self.redirect("/")
-
-
+# Which one are we using????
 class LevelPage(webapp2.RequestHandler):
     def get(self):
-        levels = Level.query().filter(Level.levelnumber == 1).fetch()
-        for level in levels:
-            question = Question.query().filter(Question.key == level.question_key).get()
-        template = env.get_template("templates/level.html")
+        question = self.request.get("question")
+        answer = self.request.get("answer")
+        template = env.get_template("templates/level1.html")
         templateVars = {
             "question" : question,
+            "answer" : answer,
         }
         self.response.write(template.render(templateVars))
 
-
+class Level(webapp2.RequestHandler) :
+    def get(self) :
+        template = env.get_template("templates/level.html")
+        self.response.write(template.render())
     # def post(self):
     #     content=self.request.get('content')
     #     current_user = users.get_current_user()
@@ -163,8 +168,8 @@ class LevelPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ("/", MainPage),
-    ("/create", CreateHandler),
-    ("/level", LevelPage)
+    ("/levelpage", LevelPage),
+    ("/level", Level),
     # ("/sequence", SequencePage),
     # ("/upload_photo", PhotoUploadHandler),
     # ("/photo", PhotoHandler),
