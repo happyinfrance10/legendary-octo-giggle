@@ -9,6 +9,8 @@ handlers:
     secure: always
   - url: /stylesheets
     static_dir: stylesheets
+  - url: /javascript
+    static_dir: javascript
     secure: always
   - url: /.*
     script: main.app
