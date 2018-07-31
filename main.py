@@ -92,22 +92,17 @@ class LevelPage(webapp2.RequestHandler):
         # create a new level object. set the level to 1 and set the sequence to the key called.
 
         # load the level using the sequence and level_number given from the level object.
-        # sequence_key = self.request.get('sequence') # for now sequence_key will display the sequence name
-        # urlsafe_key = self.request.get('key')
-        # logging.info(urlsafe_key)
-        # key = ndb.Key(urlsafe=urlsafe_key)
-        # question=key.get()
-        current_level = Person.query().filter(Person.current_level).get()
-        logging.info(current_level)
-        current_user = users.get_current_user()
-        question = Question.query().filter(Question.level_number == current_level).fetch()
-        for level in levels:
-            question = Question.query().filter(Question.key == level.question_key).get()
+
+        # load the key for the next level in the sequence, based on the current user's progress.
+        sequence_key = self.request.get('sequence') # for now sequence_key will display the sequence name
+        urlsafe_key = self.request.get('key')
+        key = ndb.Key(urlsafe=urlsafe_key)
+        question=key.get()
         template = env.get_template("templates/level.html")
         templateVars = {
             "question" : question,
-            "current_user" : current_user,
-            "current_level" : current_level,
+            # "current_user" : current_user,
+            # "current_level" : current_level,
         }
         self.response.write(template.render(templateVars))
 
