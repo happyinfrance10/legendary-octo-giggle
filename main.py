@@ -69,16 +69,15 @@ class MainPage(webapp2.RequestHandler):
 
 class LevelPage(webapp2.RequestHandler):
     def get(self):
-        # levels = Level.query().filter(Level.levelnumber == 1).fetch()
-        # for level in levels:
-        #     question = Question.query().filter(Question.key == level.question_key).get()
-        question = 'Question' #temporary value for testing
+        levels = Level.query().filter(Level.levelnumber == 1).fetch()
+        for level in levels:
+            question = Question.query().filter(Question.key == level.question_key).get()
+        # question = 'Question' #temporary value for testing
         template = env.get_template("templates/level.html")
         templateVars = {
             "question" : question,
         }
         self.response.write(template.render(templateVars))
-
 
     # def post(self):
     #     content=self.request.get('content')

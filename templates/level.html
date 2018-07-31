@@ -12,7 +12,7 @@
   </div>
 
   <div id="question">
-    <p>Question: {{question.question}} </p>
+    <p> {{question.question}} </p>
   </div>
 
   <br>
@@ -107,10 +107,15 @@
 
   <div id="answer">
     <textarea rows="9">Answer</textarea>
+    <input type="text" name="answer">
   </div>
 
   <div id="submitButton">
     <button>Submit</button>
+    <!-- {{question.answer}}
+    {% if answer == question.answer %}
+      print True
+    {% endif %} -->
   </div>
 
   <div id="nextButton">
