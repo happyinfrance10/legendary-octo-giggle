@@ -1,11 +1,11 @@
-let box = document.querySelector("#sequence1");
+let box = document.querySelector(".sequence");
 
   console.log(box);
   box.addEventListener("mouseenter", e=> {
     console.log('mousenter', e);
-    box.classList.add("spin");
+    box.classList.add("shade");
   });
 
   box.addEventListener("mouseleave", e=> {
-    box.classList.remove("spin");
+    box.classList.remove("shade");
   });
