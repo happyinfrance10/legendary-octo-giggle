@@ -6,7 +6,6 @@ import logging
 import time
 
 #may want to use PIL images for uploading images
-print(Hello, World!)
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
@@ -68,25 +67,12 @@ class MainPage(webapp2.RequestHandler):
         template = env.get_template("templates/home.html")
         self.response.write(template.render(templateVars))
 
-class CreateHandler(webapp2.RequestHandler):
-    def post(self):
-        #1 get info from Request
-        name = self.request.get("name")
-        current_user = users.get_current_user()
-        email = current_user.email()
-        #2 Read/write from database
-        person = Person(name=name, email=email)
-        person.put()
-        #3 Render a response
-        time.sleep(2)
-        self.redirect("/")
-
-
 class LevelPage(webapp2.RequestHandler):
     def get(self):
-        levels = Level.query().filter(Level.levelnumber == 1).fetch()
-        for level in levels:
-            question = Question.query().filter(Question.key == level.question_key).get()
+        # levels = Level.query().filter(Level.levelnumber == 1).fetch()
+        # for level in levels:
+        #     question = Question.query().filter(Question.key == level.question_key).get()
+        question = 'Question' #temporary value for testing
         template = env.get_template("templates/level.html")
         templateVars = {
             "question" : question,
@@ -163,7 +149,6 @@ class LevelPage(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ("/", MainPage),
-    ("/create", CreateHandler),
     ("/level", LevelPage)
     # ("/sequence", SequencePage),
     # ("/upload_photo", PhotoUploadHandler),
