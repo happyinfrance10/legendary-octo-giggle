@@ -141,10 +141,10 @@
     }
   });
   nextBtn.addEventListener('click', e =>{
-    if(user_correct.content && {{next_question_key}}!=null){
+    if(user_correct.content && "{{next_question_key}}"!="null"){
       window.location.href = "/level?key={{next_question_key}}&answer_correct=True";
-    } else if(user_correct.content && {{next_question_key}}==null){
-      window.location.href = "/";
+    } else if(user_correct.content && "{{next_question_key}}"=="null"){
+      window.location.href = "/end_game";
     }
     //next_level.key should be passed in as a template variable in the main.py
     //check if user_correct.content is true, if so redirect to next level
