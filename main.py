@@ -119,6 +119,15 @@ class LevelPage(webapp2.RequestHandler):
         }
         self.response.write(template.render(templateVars))
 
+class AboutPage(webapp2.RequestHandler) :
+    def get(self) :
+        template = env.get_template("templates/about.html")
+        self.response.write(template.render())
+
+class ContributorsPage(webapp2.RequestHandler) :
+    def get(self) :
+        template = env.get_template("templates/contributors.html")
+        self.response.write(template.render())
 
 # class ProfilePage(webapp2.RequestHandler):
 #     def get(self):
@@ -180,6 +189,8 @@ app = webapp2.WSGIApplication([
     ("/", MainPage),
     ("/level", LevelPage),
     ("/create", CreateHandler),
+    ("/about", AboutPage),
+    ("/contributors", ContributorsPage),
     # ("/sequence", SequencePage),
     # ("/upload_photo", PhotoUploadHandler),
     # ("/photo", PhotoHandler),
