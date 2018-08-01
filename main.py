@@ -37,7 +37,8 @@ question1 = Question(sequence="1", question="1010100, nzccfn, 7DB", answer = "Su
 question1.put()
 question2 = Question(sequence="1", question="Hello, nzccfn, 7DB", answer = "Goodbye", location=ndb.GeoPt(0, 0), level_number=2)
 question2.put()
-
+question3 = Question(sequence="1", question="Test", answer = "Goodbye", location=ndb.GeoPt(0,0), level_number = 3)
+question3.put()
 class MainPage(webapp2.RequestHandler):
     def get(self):
         current_user = users.get_current_user()
@@ -70,18 +71,6 @@ class MainPage(webapp2.RequestHandler):
             "current_person" : current_person,
             "sequence1_key" : sequence1_key,
         }
-        # current_user = users.get_current_user()
-        #if no one is logged in, show a login prompt.
-        # logout_url = users.create_logout_url('/')
-        # login_url = users.create_login_url('/')
-        # people = Person.query().fetch()
-        # if current_user:
-        #     current_email = current_user.email()
-        #     current_person=Person.query().filter(Person.email==current_email).get()
-        # else:
-        #     current_person = None
-            # 'login_url': login_url,
-            # 'logout_url': logout_url,
         template = env.get_template("templates/home.html")
         self.response.write(template.render(templateVars))
 
@@ -150,62 +139,6 @@ class EndGamePage(webapp2.RequestHandler) :
     def get(self) :
         template = env.get_template("templates/end_game.html")
         self.response.write(template.render())
-
-# class ProfilePage(webapp2.RequestHandler):
-#     def get(self):
-#         urlsafe_key = self.request.get('key')
-#         current_user = users.get_current_user()
-#         key = ndb.Key(urlsafe=urlsafe_key)
-#         person=key.get()
-#
-#         is_my_profile = current_user and current_user.email()==person.email
-#         templateVars = {
-#             'person' : person,
-#             'is_my_profile': is_my_profile,
-#             # 'current_user': current_user,
-#             # 'login_url': login_url,
-#         }
-#         template = env.get_template("templates/profile.html")
-#         self.response.write(template.render(templateVars))
-
-# class CreateHandler(webapp2.RequestHandler):
-#     def post(self):
-#         # 1. get info from the request
-#         name = self.request.get('name')
-#         biography = self.request.get('biography')
-#         current_user = users.get_current_user()
-#         email = current_user.email()
-#         # 2. read or write to the database
-#         person = Person(name=name, biography=biography, email=email)
-#         person.put()
-#         # 3. render a response
-#         time.sleep(1)
-#         self.redirect('/')
-
-# class PhotoUploadHandler(webapp2.RequestHandler):
-#     def post(self):
-#         # # 1. get info from the request
-#         # image = self.request.get('image')
-#         # # biography = self.request.get('biography')
-#         # current_user = users.get_current_user()
-#         # current_person=Person.query().filter(Person.email==current_user.email()).get()
-#         # current_person.photo = image
-#         # current_person.put()
-#         # # email = current_user.email()
-#         # # # 2. read or write to the database
-#         # # person = Person(name=name, biography=biography, email=email)
-#         # # person.put()
-#         # # # 3. render a response
-#         # time.sleep(1)
-#         # self.redirect('/profile?key='+current_person.key.urlsafe())
-#
-# class PhotoHandler(webapp2.RequestHandler):
-#     def get(self):
-        # urlsafe_key=self.request.get('key')
-        # key = ndb.Key(urlsafe=urlsafe_key)
-        # person=key.get()
-        # self.response.headers['Content-Type'] = 'image/jpeg'
-        # self.response.write(person.photo)
 
 app = webapp2.WSGIApplication([
     ("/", MainPage),
