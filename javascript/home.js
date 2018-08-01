@@ -13,11 +13,12 @@ let sequences = document.querySelectorAll("span");
   });
 });
 
+let sequence1_key = document.getElementById('sequence1_key');
 
 let sequence1 = document.querySelector("#sequence1");
 sequence1.addEventListener("click", e => {
   console.log("click");
-  window.location.href = "/level?key=aghkZXZ-Tm9uZXIVCxIIUXVlc3Rpb24YgICAgIDglwoM";
+  window.location.href = "/level?key="+sequence1_key.content;
 });
 
 ////For sequences 2 and three

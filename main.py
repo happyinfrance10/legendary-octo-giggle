@@ -48,6 +48,15 @@ class MainPage(webapp2.RequestHandler):
         else:
             current_person = None
 
+        # tracks progress of player within sequence 1
+        current_level_1 = Level.query().filter(Level.player_key == current_person.key).filter(Level.sequence == "1").get()
+        if not current_level_1:
+            current_level_1 = Level(player_key = current_person.key, current_level=1, sequence="1")
+
+        # loads correct question from within sequence 1
+        current_question_1 = Question.query().filter(Question.sequence == current_level_1.sequence).filter(Question.level_number == current_level_1.current_level).get()
+        sequence1_key = current_question_1.key.urlsafe()
+
         logout_url = users.create_logout_url("/")
         login_url = users.create_login_url("/")
 
@@ -57,6 +66,7 @@ class MainPage(webapp2.RequestHandler):
             "login_url" : login_url,
             "logout_url" : logout_url,
             "current_person" : current_person,
+            "sequence1_key" : sequence1_key,
         }
         # current_user = users.get_current_user()
         #if no one is logged in, show a login prompt.
@@ -97,29 +107,43 @@ class LevelPage(webapp2.RequestHandler):
         question=key.get()
         email = users.get_current_user().email()
         person = Person.query().filter(Person.email==email).get()
-        person.current_level += 1
-        person.put()
+        answer_correct = self.request.get('answer_correct')
+        logging.info(answer_correct)
+        # note to generalize to current sequence via the sequence_key next time.
+
+        next_question = Question.query().filter(Question.sequence == "1").filter(Question.level_number == question.level_number+1).get()
+
+        if (answer_correct):
+            person.current_level = question.level_number
+            person.put()
         logging.info(person)
-
-        # person.current_level = current_level
-        # current_level += 1
-        # current_level.put()
-        # print(question.key.urlsafe())
-
         # get the current_level from the current_person object and modify it to increase 1
 
         # use that same current_level (after increase) and the sequence name to filter for a question within
         # the question database
-
+        if(next_question):
+            next_question_key = next_question.key.urlsafe()
+        else:
+            next_question_key = "null"
         # fetch that question, and return that key and pass as a template variable.
         template = env.get_template("templates/level.html")
         templateVars = {
             "question" : question,
+            "next_question_key" : next_question_key,
             # "current_user" : current_user,
             # "current_level" : current_level,
         }
         self.response.write(template.render(templateVars))
 
+class AboutPage(webapp2.RequestHandler) :
+    def get(self) :
+        template = env.get_template("templates/about.html")
+        self.response.write(template.render())
+
+class ContributorsPage(webapp2.RequestHandler) :
+    def get(self) :
+        template = env.get_template("templates/contributors.html")
+        self.response.write(template.render())
 
 # class ProfilePage(webapp2.RequestHandler):
 #     def get(self):
@@ -181,6 +205,8 @@ app = webapp2.WSGIApplication([
     ("/", MainPage),
     ("/level", LevelPage),
     ("/create", CreateHandler),
+    ("/about", AboutPage),
+    ("/contributors", ContributorsPage),
     # ("/sequence", SequencePage),
     # ("/upload_photo", PhotoUploadHandler),
     # ("/photo", PhotoHandler),
