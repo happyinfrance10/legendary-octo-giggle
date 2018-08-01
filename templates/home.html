@@ -2,17 +2,18 @@
 
 <div id="main">
   <head>
-    <title>NESW Puzzles (working title)</title>
+    <title>NESW Puzzles</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 
 </head>
 
   <body>
+
 <!-- Navigation bar -->
     <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contributors">Contributors</a></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contributors">Contributors</a></li>
       <li>{% if current_user %}
             <a href={{logout_url}}>Log Out</a>
           {% else %}
