@@ -149,7 +149,7 @@
   });
   nextBtn.addEventListener('click', e =>{
     if(user_correct.content && "{{next_question_key}}"!="null"){
-      window.location.href = "/level?key={{next_question_key}}&answer_correct=True";
+      window.location.href = "/level?sequence={{sequence_key}}&key={{next_question_key}}&answer_correct=True";
     } else if(user_correct.content && "{{next_question_key}}"=="null"){
       window.location.href = "/end_game";
     }
