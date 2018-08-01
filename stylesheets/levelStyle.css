@@ -1,7 +1,16 @@
 body {
-    background: powderblue;
+    background-color: #2AA9D2;
+    margin-top: 35px;
     margin-left: 40px;
     margin-right: 40px;
+    font-family: 'Helvetica Neue',Arial,sans-serif;
+    /* font-family: x-locale-heading-primary,zillaslab,Palatino,"Palatino Linotype",x-locale-heading-secondary,serif; */
+    /*font-family: Georgia, serif; */
+}
+
+#logo {
+  float: left;
+  border-radius: 10%;
 }
 
 #title {
@@ -9,10 +18,14 @@ body {
 }
 
 #main {
-  background-color: teal;
-  width: 75%;
+  /* background-color: teal; */
+  background: powderblue;
+  /* background-color: #6F2232; */
+  width: 70%;
   margin: auto;
-  box-shadow: 0px 0px 20px black;
+  padding-bottom: 25px;
+  box-shadow: 0px 0px 25px black;
+  border-radius: 10px 10px 10px 10px;
 }
 
 #googleMaps {
