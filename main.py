@@ -37,7 +37,8 @@ question1 = Question(sequence="1", question="1010100, nzccfn, 7DB", answer = "Su
 question1.put()
 question2 = Question(sequence="1", question="Hello, nzccfn, 7DB", answer = "Goodbye", location=ndb.GeoPt(0, 0), level_number=2)
 question2.put()
-
+question3 = Question(sequence="1", question="Test", answer = "Goodbye", location=ndb.GeoPt(0,0), level_number = 3)
+question3.put()
 class MainPage(webapp2.RequestHandler):
     def get(self):
         current_user = users.get_current_user()
@@ -70,18 +71,6 @@ class MainPage(webapp2.RequestHandler):
             "current_person" : current_person,
             "sequence1_key" : sequence1_key,
         }
-        # current_user = users.get_current_user()
-        #if no one is logged in, show a login prompt.
-        # logout_url = users.create_logout_url('/')
-        # login_url = users.create_login_url('/')
-        # people = Person.query().fetch()
-        # if current_user:
-        #     current_email = current_user.email()
-        #     current_person=Person.query().filter(Person.email==current_email).get()
-        # else:
-        #     current_person = None
-            # 'login_url': login_url,
-            # 'logout_url': logout_url,
         template = env.get_template("templates/home.html")
         self.response.write(template.render(templateVars))
 
@@ -110,15 +99,13 @@ class LevelPage(webapp2.RequestHandler):
         email = users.get_current_user().email()
         person = Person.query().filter(Person.email==email).get()
         answer_correct = self.request.get('answer_correct')
-        logging.info(answer_correct)
         # note to generalize to current sequence via the sequence_key next time.
 
-        next_question = Question.query().filter(Question.sequence == "1").filter(Question.level_number == question.level_number+1).get()
+        next_question = Question.query().filter(Question.sequence == str(sequence_key)).filter(Question.level_number == question.level_number+1).get()
 
         if (answer_correct):
             person.current_level = question.level_number
             person.put()
-        logging.info(person)
         # get the current_level from the current_person object and modify it to increase 1
 
         # use that same current_level (after increase) and the sequence name to filter for a question within
@@ -132,6 +119,7 @@ class LevelPage(webapp2.RequestHandler):
         templateVars = {
             "question" : question,
             "next_question_key" : next_question_key,
+            "sequence_key": sequence_key,
             # "current_user" : current_user,
             # "current_level" : current_level,
         }

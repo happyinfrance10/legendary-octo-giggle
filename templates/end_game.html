@@ -2,3 +2,18 @@
 <link rel="stylesheet" href="stylesheets/end_game.css">
 
 This is the endgame page
+
+<title>End of Game</title>
+<link rel="stylesheet" href="stylesheets/end_style.css">
+
+<div id="main">
+  <h1 id="congrats_message">YOU COMPLETED THE SEQUENCE!!!</h1>
+  <!--insert feedback form later-->
+  <button id="home">Return to home screen</button>
+  <script>
+    homeButton = document.getElementById('home');
+    homeButton.addEventListener('click', e =>{
+      window.location.href = "/";
+    });
+  </script>
+</div>
