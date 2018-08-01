@@ -14,7 +14,7 @@ body {
 }
 
 #title {
-  text-align: center;
+  margin-left: 525px;
 }
 
 #main {
@@ -31,10 +31,13 @@ body {
 #googleMaps {
   border: 2px solid black;
   height: 300px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #questionTitle {
-
+  text-align: center;
+  padding-top: 2px;
 }
 
 #question {
@@ -47,7 +50,8 @@ body {
 }
 
 #answerTitle {
-
+  text-align: center;
+  padding-top: 2px;
 }
 
 #answer {
@@ -56,6 +60,8 @@ body {
   background-color: white;
   display: flex;
   flex-direction: column;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #pac-input {
