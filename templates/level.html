@@ -96,9 +96,9 @@
 
   </script>
   <!-- this is a demo key and won't work but i'm just using it for commits-->
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk&libraries=places&callback=initAutocomplete" async defer></script> -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk&libraries=places&callback=initAutocomplete" async defer></script>
   <!--this is the real API key-->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZSTilzBnsn8bkiup_XCNCwFzyUmoO5IU&libraries=places&callback=initAutocomplete" async defer></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZSTilzBnsn8bkiup_XCNCwFzyUmoO5IU&libraries=places&callback=initAutocomplete" async defer></script> -->
   <br>
 
   <div id="answerTitle">
@@ -126,8 +126,6 @@
   let incorrectMsg = document.getElementById('incorrectMessage');
   let correctMsg = document.getElementById('correctMessage');
   let nextBtn = document.getElementById('nextButton');
-  //OK it's not really jinja but I would like to know how to incorporate
-  // a data value from the ndb into javascript.
   submitBtn.addEventListener('click', e =>{
     if(user_answer.value == "{{question.answer}}"){
       incorrectMsg.style.visibility = "hidden";

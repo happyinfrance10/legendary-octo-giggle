@@ -46,6 +46,14 @@ class MainPage(webapp2.RequestHandler):
         else:
             current_person = None
 
+        # tracks progress of player within sequence 1
+        current_level_1 = Level.query().filter(Level.player_key == current_person.key).filter(Level.sequence == "1").get()
+        if not current_level_1:
+            current_level_1 = Level(player_key = current_person.key, current_level=1, sequence="1")
+
+        # loads correct question from within sequence 1
+        current_question_1 = Question.query().filter(Question.sequence == current_level_1.sequence).filter(Question.level_number == current_level_1.current_level).get()
+        sequence1_key = current_question_1.key.urlsafe()
         logout_url = users.create_logout_url("/")
         login_url = users.create_login_url("/")
 
@@ -55,6 +63,7 @@ class MainPage(webapp2.RequestHandler):
             "login_url" : login_url,
             "logout_url" : logout_url,
             "current_person" : current_person,
+            "sequence1_key" : sequence1_key,
         }
         # current_user = users.get_current_user()
         #if no one is logged in, show a login prompt.
@@ -95,7 +104,6 @@ class LevelPage(webapp2.RequestHandler):
         question=key.get()
         email = users.get_current_user().email()
         person = Person.query().filter(Person.email==email).get()
-
 
         # get the current_level from the current_person object and modify it to increase 1
 
