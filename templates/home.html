@@ -41,15 +41,25 @@
 
   <!-- Sequence options -->
   <!-- href="/level?key=aghkZXZ-Tm9uZXIVCxIIUXVlc3Rpb24YgICAgIDglwoM" -->
-    <span id="sequence1" class="sequence">
-      <h2>Sequence <br> 1</h2>
-    </span>
-    <span id="sequence2" class="sequence">
-      <h2>Sequence <br> 2</h2>
-    </span>
-    <span id="sequence3" class="sequence">
-      <h2>Sequence <br> 3</h2>
-    </span>
+    {% if current_person %}
+      <span id="sequence1" class="sequence">
+        <h2>Sequence <br> 1</h2>
+      </span>
+      <span id="sequence2" class="sequence">
+        <h2>Sequence <br> 2</h2>
+      </span>
+      <span id="sequence3" class="sequence">
+        <h2>Sequence <br> 3</h2>
+      </span>
+    {% else %}
+      <p>Welcome to NESW Puzzles! We created a bunch of puzzles inspired by
+      scavenger hunts, escape rooms, and brain teasers!</p>
+      <p>The clues are hidden within various locations across the world, so we
+      have provided a built-in Google Maps to help you search for them. Also
+      remember that the Internet is your friend!</p>
+      <p>To start, sign in using the link at the top-right corner, or enter your
+      name in the box in the top-right corner if you are already signed in. </p>
+    {%endif%}
 
   </body>
 

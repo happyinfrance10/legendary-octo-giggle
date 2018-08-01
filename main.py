@@ -49,14 +49,16 @@ class MainPage(webapp2.RequestHandler):
             current_person = None
 
         # tracks progress of player within sequence 1
-        current_level_1 = Level.query().filter(Level.player_key == current_person.key).filter(Level.sequence == "1").get()
-        if not current_level_1:
-            current_level_1 = Level(player_key = current_person.key, current_level=1, sequence="1")
+        if current_person:
+            current_level_1 = Level.query().filter(Level.player_key == current_person.key).filter(Level.sequence == "1").get()
+            if not current_level_1:
+                current_level_1 = Level(player_key = current_person.key, current_level=1, sequence="1")
 
-        # loads correct question from within sequence 1
-        current_question_1 = Question.query().filter(Question.sequence == current_level_1.sequence).filter(Question.level_number == current_level_1.current_level).get()
-        sequence1_key = current_question_1.key.urlsafe()
-
+            # loads correct question from within sequence 1
+            current_question_1 = Question.query().filter(Question.sequence == current_level_1.sequence).filter(Question.level_number == current_level_1.current_level).get()
+            sequence1_key = current_question_1.key.urlsafe()
+        else:
+            sequence1_key = None
         logout_url = users.create_logout_url("/")
         login_url = users.create_login_url("/")
 
