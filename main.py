@@ -86,11 +86,6 @@ class CreateHandler(webapp2.RequestHandler):
 
 class LevelPage(webapp2.RequestHandler):
     def get(self):
-        # if the person doesn't exist in the database, create a new Person class
-        # with that user's email as the parameter
-        # if the level object with the current person's filter doesn't exist in the database,
-        # create a new level object. set the level to 1 and set the sequence to the key called.
-
         # load the level using the sequence and level_number given from the level object.
 
         # load the key for the next level in the sequence, based on the current user's progress.
@@ -98,6 +93,16 @@ class LevelPage(webapp2.RequestHandler):
         urlsafe_key = self.request.get('key')
         key = ndb.Key(urlsafe=urlsafe_key)
         question=key.get()
+        email = users.get_current_user().email()
+        person = Person.query().filter(Person.email==email).get()
+
+
+        # get the current_level from the current_person object and modify it to increase 1
+
+        # use that same current_level (after increase) and the sequence name to filter for a question within
+        # the question database
+
+        # fetch that question, and return that key and pass as a template variable.
         template = env.get_template("templates/level.html")
         templateVars = {
             "question" : question,
