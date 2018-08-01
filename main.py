@@ -146,7 +146,7 @@ app = webapp2.WSGIApplication([
     ("/create", CreateHandler),
     ("/about", AboutPage),
     ("/contributors", ContributorsPage),
-    ("/endgame", EndGamePage),
+    ("/end_game", EndGamePage),
     # ("/sequence", SequencePage),
     # ("/upload_photo", PhotoUploadHandler),
     # ("/photo", PhotoHandler),

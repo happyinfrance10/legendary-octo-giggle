@@ -107,6 +107,7 @@
   <div id="answerTitle">
     <h2>Solution:</h2>
   </div>
+  <h3 id="incorrectMessage">Your answer is incorrect</h3>
     <div id="answer" >
       <textarea rows="9" >Answer</textarea>
     </div>
@@ -116,7 +117,7 @@
     </div>
 
   <!-- MERGE the two messages later :)-->
-  <p id="incorrectMessage">Your answer was incorrect.</p>
+
   <p id="correctMessage">Your answer was correct!</p>
   <meta id="answer_correct" name= "answer_correct" content="false">
   <!--Insert following key in the level-->
@@ -138,9 +139,12 @@
       nextBtn.style.visibility="visible";
       correctMsg.style.visibility="visible";
       user_correct.content="true";
+      answer.style.borderColor = "green";
     }
     else {
       incorrectMsg.style.visibility="visible";
+      answer.style.borderColor = "red";
+
     }
   });
   nextBtn.addEventListener('click', e =>{

@@ -57,6 +57,16 @@ body {
   flex-direction: column;
 }
 
+#incorrectMessage {
+  color: red;
+  text-align: center;
+}
+
+#incorrectMessage {
+  color: red;
+  text-align: center;
+}
+
 #pac-input {
   background-color: #fff;
   font-family: Roboto;
