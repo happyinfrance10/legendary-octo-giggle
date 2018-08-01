@@ -147,6 +147,11 @@ class ContributorsPage(webapp2.RequestHandler) :
         template = env.get_template("templates/contributors.html")
         self.response.write(template.render())
 
+class EndGamePage(webapp2.RequestHandler) :
+    def get(self) :
+        template = env.get_template("templates/end_game.html")
+        self.response.write(template.render())
+
 # class ProfilePage(webapp2.RequestHandler):
 #     def get(self):
 #         urlsafe_key = self.request.get('key')
@@ -209,6 +214,7 @@ app = webapp2.WSGIApplication([
     ("/create", CreateHandler),
     ("/about", AboutPage),
     ("/contributors", ContributorsPage),
+    ("/end_game", EndGamePage),
     # ("/sequence", SequencePage),
     # ("/upload_photo", PhotoUploadHandler),
     # ("/photo", PhotoHandler),
