@@ -152,69 +152,13 @@ class EndGamePage(webapp2.RequestHandler) :
         template = env.get_template("templates/end_game.html")
         self.response.write(template.render())
 
-# class ProfilePage(webapp2.RequestHandler):
-#     def get(self):
-#         urlsafe_key = self.request.get('key')
-#         current_user = users.get_current_user()
-#         key = ndb.Key(urlsafe=urlsafe_key)
-#         person=key.get()
-#
-#         is_my_profile = current_user and current_user.email()==person.email
-#         templateVars = {
-#             'person' : person,
-#             'is_my_profile': is_my_profile,
-#             # 'current_user': current_user,
-#             # 'login_url': login_url,
-#         }
-#         template = env.get_template("templates/profile.html")
-#         self.response.write(template.render(templateVars))
-
-# class CreateHandler(webapp2.RequestHandler):
-#     def post(self):
-#         # 1. get info from the request
-#         name = self.request.get('name')
-#         biography = self.request.get('biography')
-#         current_user = users.get_current_user()
-#         email = current_user.email()
-#         # 2. read or write to the database
-#         person = Person(name=name, biography=biography, email=email)
-#         person.put()
-#         # 3. render a response
-#         time.sleep(1)
-#         self.redirect('/')
-
-# class PhotoUploadHandler(webapp2.RequestHandler):
-#     def post(self):
-#         # # 1. get info from the request
-#         # image = self.request.get('image')
-#         # # biography = self.request.get('biography')
-#         # current_user = users.get_current_user()
-#         # current_person=Person.query().filter(Person.email==current_user.email()).get()
-#         # current_person.photo = image
-#         # current_person.put()
-#         # # email = current_user.email()
-#         # # # 2. read or write to the database
-#         # # person = Person(name=name, biography=biography, email=email)
-#         # # person.put()
-#         # # # 3. render a response
-#         # time.sleep(1)
-#         # self.redirect('/profile?key='+current_person.key.urlsafe())
-#
-# class PhotoHandler(webapp2.RequestHandler):
-#     def get(self):
-        # urlsafe_key=self.request.get('key')
-        # key = ndb.Key(urlsafe=urlsafe_key)
-        # person=key.get()
-        # self.response.headers['Content-Type'] = 'image/jpeg'
-        # self.response.write(person.photo)
-
 app = webapp2.WSGIApplication([
     ("/", MainPage),
     ("/level", LevelPage),
     ("/create", CreateHandler),
     ("/about", AboutPage),
     ("/contributors", ContributorsPage),
-    ("/end_game", EndGamePage),
+    ("/endgame", EndGamePage),
     # ("/sequence", SequencePage),
     # ("/upload_photo", PhotoUploadHandler),
     # ("/photo", PhotoHandler),
