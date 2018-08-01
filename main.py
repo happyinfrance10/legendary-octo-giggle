@@ -37,8 +37,6 @@ question1 = Question(sequence="1", question="1010100, nzccfn, 7DB", answer = "Su
 question1.put()
 question2 = Question(sequence="1", question="Hello, nzccfn, 7DB", answer = "Goodbye", location=ndb.GeoPt(0, 0), level_number=2)
 question2.put()
-question3 = Question(sequence="1", question="Test", answer = "Goodbye", location=ndb.GeoPt(0,0), level_number = 3)
-question3.put()
 class MainPage(webapp2.RequestHandler):
     def get(self):
         current_user = users.get_current_user()
