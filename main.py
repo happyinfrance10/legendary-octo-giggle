@@ -35,6 +35,8 @@ class Level(ndb.Model): #keeps track of player progress per sequence
 
 question1 = Question(sequence="1", question="1010100, nzccfn, 7DB", answer = "Sun Microsystems", location=ndb.GeoPt(0, 0), level_number=1)
 question1.put()
+question2 = Question(sequence="1", question="Hello, nzccfn, 7DB", answer = "Goodbye", location=ndb.GeoPt(0, 0), level_number=2)
+question2.put()
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -95,7 +97,14 @@ class LevelPage(webapp2.RequestHandler):
         question=key.get()
         email = users.get_current_user().email()
         person = Person.query().filter(Person.email==email).get()
+        person.current_level += 1
+        person.put()
+        logging.info(person)
 
+        # person.current_level = current_level
+        # current_level += 1
+        # current_level.put()
+        # print(question.key.urlsafe())
 
         # get the current_level from the current_person object and modify it to increase 1
 
