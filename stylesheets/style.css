@@ -66,6 +66,10 @@ body {
   border-radius: 10%;
 }
 
+#welcome_info{
+  padding: 15px;
+}
+
 .sequence {
   display: block;
   margin-left:auto;
