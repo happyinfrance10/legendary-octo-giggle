@@ -54,6 +54,15 @@ body {
   text-decoration: underline;
 }
 
+#about {
+  padding: 30px;
+}
+
+#sign_in {
+  margin-left: 250px;
+  padding: 30px;
+}
+
 #logo {
   margin-left: 250px;
   margin-top: 30px;
