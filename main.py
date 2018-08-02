@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
 import webapp2
 import jinja2
 import os
@@ -24,8 +28,9 @@ class Question(ndb.Model):
     sequence = ndb.StringProperty()
     question = ndb.StringProperty()
     answer = ndb.StringProperty()
-    location = ndb.GeoPtProperty()
     level_number = ndb.IntegerProperty()
+    hint = ndb.StringProperty()
+    second_hint = ndb.StringProperty()
 
 class Level(ndb.Model): #keeps track of player progress per sequence
     player_key = ndb.KeyProperty()
@@ -33,9 +38,11 @@ class Level(ndb.Model): #keeps track of player progress per sequence
     sequence = ndb.StringProperty()
     finished = ndb.BooleanProperty()
 
-question1 = Question(sequence="1", question="1010100, nzccfn, 7DB", answer = "Sun Microsystems", location=ndb.GeoPt(0, 0), level_number=1)
+#when you create new questions, use the form
+#
+question1 = Question(sequence="1", question="Lorem ipsum doloar sit amet, consecteturd adipiscin edlit, sed do eiusmd tempor incididunt ut labre et dolore mana aliqua. Ut enim ad minim venriam, quis nostrud exercietation ulamco laboris nisi sut aliquips ex a commodo consequat. (HQ)", answer = "1600 Amphitheatre Pkwy, Mountain View, CA 94043", level_number=1, hint ="This looks largely like some lorem ipsum text, but are you sure it's copied verbatim down to the letter?", second_hint="After cross-referencing it with the corresponding text that seems to be the source, the difference in letters should spell out a company name and what to look for. Of course it may not be obvious which office but if that’s the case why is (HQ) there?")
 question1.put()
-question2 = Question(sequence="1", question="Hello, nzccfn, 7DB", answer = "Goodbye", location=ndb.GeoPt(0, 0), level_number=2)
+question2 = Question(sequence="1", question="(1/2) People these days are going to #SiliconValley for jobs in the technological industry. Do they pay well? I came down to see for myself. 8:48AM - 29 MAY 2015 (2/2) I searched for a reputable tech company on some street. I think I found the building but don't know which door to knock on… 8:48AM - 29 MAY 2015", answer = "900", level_number=2, hint ="If you live in an apartment and have had to fill out address line 2, this question may be easier for you. You might also want to count the number of characters per each paragraph. (Note the date(s) listed!)", second_hint="(1/2) and (2/2) are commonly associated with a certain social platform due to the character limit imposed per status. Could this social platform be the company the narrator is looking for? (Again, note the date! The limit may have not been the same throughout the years…)")
 question2.put()
 
 class MainPage(webapp2.RequestHandler):
