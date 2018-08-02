@@ -39,15 +39,39 @@ class Level(ndb.Model): #keeps track of player progress per sequence
     finished = ndb.BooleanProperty()
 
 #when you create new questions, use the form
-#
-question1 = Question(sequence="1", question="Lorem ipsum doloar sit amet, consecteturd adipiscin edlit, sed do eiusmd tempor incididunt ut labre et dolore mana aliqua. Ut enim ad minim venriam, quis nostrud exercietation ulamco laboris nisi sut aliquips ex a commodo consequat. (HQ)", answer = "1600 Amphitheatre Pkwy, Mountain View, CA 94043", level_number=1, hint ="This looks largely like some lorem ipsum text, but are you sure it's copied verbatim down to the letter?", second_hint="After cross-referencing it with the corresponding text that seems to be the source, the difference in letters should spell out a company name and what to look for. Of course it may not be obvious which office but if that’s the case why is (HQ) there?")
-question1.put()
-question2 = Question(sequence="1", question="(1/2) People these days are going to #SiliconValley for jobs in the technological industry. Do they pay well? I came down to see for myself. <br> 8:48AM - 29 MAY 2015 <br><br>(2/2) I searched for a reputable tech company on some street. I think I found the building but don't know which door to knock on…<br> 8:48AM - 29 MAY 2015", answer = "900", level_number=2, hint ="If you live in an apartment and have had to fill out address line 2, this question may be easier for you. You might also want to count the number of characters per each paragraph. (Note the date(s) listed!)", second_hint="(1/2) and (2/2) are associated with a social platform due to character limits imposed per status. Could this social platform be the company the narrator is looking for? (Again, note the date; the limit may have not been the same all the time…) In addition, the apartment number (which identifies the door to knock on) is analogous to the office suite number...")
-question2.put()
-question3 = Question(sequence="1", question="One fine day a couple years back (I don't know exactly how many years ago, I can't count), I used to work somewhere in the vicinity of the 145 and 161 highways. I moved out recently, but as I was leaving it seems like some other start-up is starting to take shape nearby. I can't bike, or I would use it...", answer = "LimeBike", level_number=3, hint ="Hint: The narrator can’t count in our base, but (s)he could count in another...", second_hint="After converting the highway numbers to a more readable form and searching for a bicycle startup in the area where they intersect, I would assume that there should be one name sticking out to your eyes...")
-question3.put()
-question4 = Question(sequence="4", question="Name the place where our founding fathers intended to revise the Articles of Confederation.", hint="This place is famous for the adoption of the Declaration of Independence in 1776", second_hint="It is presently called Independence Hall.", level_number=1, answer="Pennsylvania State House")
-question4.put()
+#tech questions (super hard lel)
+question1_1 = Question(sequence="1", question="Lorem ipsum doloar sit amet, consecteturd adipiscin edlit, sed do eiusmd tempor incididunt ut labre et dolore mana aliqua. Ut enim ad minim venriam, quis nostrud exercietation ulamco laboris nisi sut aliquips ex a commodo consequat. (HQ)", answer = "1600 Amphitheatre Pkwy, Mountain View, CA 94043, USA", level_number=1, hint ="This looks largely like some lorem ipsum text, but are you sure it's copied verbatim down to the letter?", second_hint="After cross-referencing it with the corresponding text that seems to be the source, the difference in letters should spell out a company name and what to look for. Of course it may not be obvious which office but if that’s the case why is (HQ) there?")
+question1_1.put()
+question1_2 = Question(sequence="1", question="(1/2) People these days are going to #SiliconValley for jobs in the technological industry. Do they pay well? I came down to see for myself. <br> 8:48AM - 29 MAY 2015 <br><br>(2/2) I searched for a reputable tech company on some street. I think I found the building but don't know which door to knock on…<br> 8:48AM - 29 MAY 2015", answer = "900", level_number=2, hint ="If you live in an apartment and have had to fill out address line 2, this question may be easier for you. You might also want to count the number of characters per each paragraph. (Note the date listed!)", second_hint="(1/2) and (2/2) are associated with a social platform due to character limits imposed per status. Could this social platform be the company the narrator is looking for? (Again, note the date; the limit may have not been the same all the time…) In addition, the apartment number (which identifies the door to knock on) is analogous to the office suite number...")
+question1_2.put()
+question1_3 = Question(sequence="1", question="One fine day a couple years back (I don't know exactly how many years ago, I can't count), I used to work somewhere in the vicinity of the 145 and 161 highways. I moved out recently, but as I was leaving it seems like some other start-up is starting to take shape nearby. I don't bike, and can't use it. Thus, I don't recall the name. Do you?", answer = "LimeBike", level_number=3, hint ="Hint: The narrator can’t count in our base, but (s)he could count in another...", second_hint="After converting the highway numbers to a more readable form and searching for a bicycle startup in the area where they intersect, I would assume that there should be one name sticking out to your eyes...")
+question1_3.put()
+
+question2_1 = Question(sequence = "2", question = "Find the address of Germany's oldest zoo.", answer = "Hardenbergplatz 8, 10787 Berlin, Germany", level_number = 1, hint = "Google it!", second_hint = "Have you Googled it yet?")
+question2_1.put()
+question2_2 = Question(sequence = "2", question = "Find the address of the world's first zoo.", answer = "Maxingstraße 13b, 1130 Wien, Austria", level_number = 2, hint = "Google is your friend.", second_hint = "Located in Vienna, Austria (well, at least it's now called that)")
+question2_2.put()
+question2_3 = Question(sequence = "2", question = "Find the address of a zoo in the United States that opened in 1899.", answer = "2300 Southern Blvd, Bronx, NY 10460, USA", level_number = 3, hint = "The first zoo in the western hemisphere that had snow leopards.", second_hint = "Located in New York")
+question2_3.put()
+question2_4 = Question(sequence = "2", question = "Name the famous zoo not too far away from building blocks.", answer = "San Diego Zoo", level_number = 4, hint = "Located in CA", second_hint = "The building blocks are Legos...")
+question2_4.put()
+question2_5 = Question(sequence = "2", question = "Find the zoo that is famously known for its open design.", answer = "Singapore Zoo", level_number = 5, hint = "Located in Asia", second_hint = "Located in Singapore")
+question2_5.put()
+
+question3_1 = Question(sequence = "3", question = "When I was young, I visited South America, where I saw thousands and thousands of plants and birds. What was that place called?", answer = "Amazon Rainforest", level_number = 1, hint = "Try looking in Brazil.", second_hint = "There are lots of trees there!")
+question3_1.put()
+question3_2 = Question(sequence = "3", question = "I know of a place whose boundaries are noted by trees, but they’re not the trees you’re used to seeing. There isn’t too much water around here…", answer = "Mojave Desert", level_number = 2, hint = "Commonly called “The High Desert”", second_hint = "This North American desert crosses multiple states.")
+question3_2.put()
+question3_3 = Question(sequence = "3", question = "They say when you’re lost, follow the stream, but this one is too long to follow all the way. I hear this water has two colors. What’s it called?", answer = "Nile River", level_number = 3, hint = "Try looking in Africa", second_hint = "It's the primary water source of Egypt and Sudan.")
+question3_3.put()
+question3_4 = Question(sequence = "3", question = "", answer = "", level_number = 4, hint = "", second_hint = "")
+question3_4.put()
+question3_5 = Question(sequence = "3", question = "", answer = "", level_number = 5, hint = "", second_hint = "")
+question3_5.put()
+
+question4_1 = Question(sequence="4", question="Name the place where our founding fathers intended to revise the Articles of Confederation.", hint="This place is famous for the adoption of the Declaration of Independence in 1776", second_hint="It is presently called Independence Hall.", level_number=1, answer="Pennsylvania State House")
+question4_1.put()
+
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
