@@ -37,6 +37,7 @@ question1 = Question(sequence="1", question="1010100, nzccfn, 7DB", answer = "Su
 question1.put()
 question2 = Question(sequence="1", question="Hello, nzccfn, 7DB", answer = "Goodbye", location=ndb.GeoPt(0, 0), level_number=2)
 question2.put()
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         current_user = users.get_current_user()
@@ -74,14 +75,11 @@ class MainPage(webapp2.RequestHandler):
 
 class CreateHandler(webapp2.RequestHandler):
     def post(self):
-        #1 get info from Request
         name = self.request.get("name")
         current_user = users.get_current_user()
         email = current_user.email()
-        #2 Read/write from database
         person = Person(name=name, email=email, current_level= 1)
         person.put()
-        #3 Render a response
         time.sleep(2)
         self.redirect("/")
 
@@ -118,8 +116,6 @@ class LevelPage(webapp2.RequestHandler):
             "question" : question,
             "next_question_key" : next_question_key,
             "sequence_key": sequence_key,
-            # "current_user" : current_user,
-            # "current_level" : current_level,
         }
         self.response.write(template.render(templateVars))
 
@@ -145,7 +141,4 @@ app = webapp2.WSGIApplication([
     ("/about", AboutPage),
     ("/contributors", ContributorsPage),
     ("/end_game", EndGamePage),
-    # ("/sequence", SequencePage),
-    # ("/upload_photo", PhotoUploadHandler),
-    # ("/photo", PhotoHandler),
 ], debug=True)
