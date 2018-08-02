@@ -15,9 +15,9 @@
       <li><a href="/about">About</a></li>
       <li><a href="/contributors">Contributors</a></li>
       <li>{% if current_user %}
-            <a href={{logout_url}}>Log Out</a>
+            <a href={{logout_url}}>Sign Out</a>
           {% else %}
-            <a href={{login_url}}>Log In</a>
+            <a href={{login_url}}>Sign In</a>
           {%endif%}
           {% if current_user and not current_person %}
           <br>
@@ -30,33 +30,46 @@
       </li>
     </ul>
 
-    <!-- <div id="title">
-      <h1>NESW Puzzles</h1>
-    </div> -->
+    <div id="title">
+      <h1>Welcome!</h1>
+    </div>
 
     <img id="logo" src="images/logo.jpg"></img>
 
+    <div id="info">
+      <h2>Select a box to begin, <br>
+        or click 'About' to learn more<h2>
+    </div>
 
-    <br><br>
+    <br>
 
   <!-- Sequence options -->
     {% if current_person %}
       <span id="sequence1" class="sequence">
-        <h2>Sequence <br> 1</h2>
+        <img src="images/computer.jpg" ></img>
+        <h2>Technology</h2>
       </span>
       <span id="sequence2" class="sequence">
-        <h2>Sequence <br> 2</h2>
+        <h2>Sequence 2</h2>
       </span>
+      <br>
       <span id="sequence3" class="sequence">
-        <h2>Sequence <br> 3</h2>
+        <h2>Sequence 3</h2>
+      </span>
+      <span id="sequence4" class="sequence">
+        <h2>Sequence 4</h2>
       </span>
     {% else %}
       <h1 id="sign_in">Sign in to begin playing!</h1>
     {%endif%}
 
+    <div>
+
+    </div>
   </body>
 
 </div>
+
 
 
 <script src="javascript/home.js"></script>
