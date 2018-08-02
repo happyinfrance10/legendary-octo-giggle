@@ -59,10 +59,11 @@ class MainPage(webapp2.RequestHandler):
 
         # tracks progress of player within sequence 1
         if current_person:
+
+            # for tech sequence
             current_level_1 = Level.query().filter(Level.player_key == current_person.key).filter(Level.sequence == "1").get()
             # if the current user has no level progress, then create a new sequence
             if not current_level_1:
-                # current_level_1 = Level(player_key = current_person.key, current_level=1, sequence="1")
                 current_level_1 = Level(player_key = current_person.key, current_level=1, sequence="1", finished=False)
                 current_level_1.put()
             # if the current user finished the level, then reset progress
@@ -70,12 +71,67 @@ class MainPage(webapp2.RequestHandler):
                 current_level_1.finished = False
                 current_level_1.current_level = 1
                 current_level_1.put()
-
             # loads correct question from within sequence 1
             current_question_1 = Question.query().filter(Question.sequence == current_level_1.sequence).filter(Question.level_number == current_level_1.current_level).get()
             sequence1_key = current_question_1.key.urlsafe()
+
+            # for animals/zoo sequence
+            current_level_2 = Level.query().filter(Level.player_key == current_person.key).filter(Level.sequence == "2").get()
+            # if the current user has no level progress, then create a new sequence
+            if not current_level_2:
+                current_level_2 = Level(player_key = current_person.key, current_level=1, sequence="2", finished=False)
+                current_level_2.put()
+            # if the current user finished the level, then reset progress
+            if (current_level_2.finished):
+                current_level_2.finished = False
+                current_level_2.current_level = 1
+                current_level_2.put()
+            # loads correct question from within sequence 1
+            current_question_2 = Question.query().filter(Question.sequence == current_level_2.sequence).filter(Question.level_number == current_level_2.current_level).get()
+            if current_question_2:
+                sequence2_key = current_question_2.key.urlsafe()
+            else:
+                sequence2_key = None
+            #for wildlife/natural resources sequence
+            current_level_3 = Level.query().filter(Level.player_key == current_person.key).filter(Level.sequence == "3").get()
+            # if the current user has no level progress, then create a new sequence
+            if not current_level_3:
+                current_level_3 = Level(player_key = current_person.key, current_level=1, sequence="3", finished=False)
+                current_level_3.put()
+            # if the current user finished the level, then reset progress
+            if (current_level_3.finished):
+                current_level_3.finished = False
+                current_level_3.current_level = 1
+                current_level_3.put()
+            # loads correct question from within sequence 1
+            current_question_3 = Question.query().filter(Question.sequence == current_level_3.sequence).filter(Question.level_number == current_level_3.current_level).get()
+            if current_question_3:
+                sequence3_key = current_question_3.key.urlsafe()
+            else:
+                sequence3_key = None
+            # for history (example) sequence
+            current_level_4 = Level.query().filter(Level.player_key == current_person.key).filter(Level.sequence == "4").get()
+            # if the current user has no level progress, then create a new sequence
+            if not current_level_4:
+                current_level_4 = Level(player_key = current_person.key, current_level=1, sequence="4", finished=False)
+                current_level_4.put()
+            # if the current user finished the level, then reset progress
+            if (current_level_4.finished):
+                current_level_4.finished = False
+                current_level_4.current_level = 1
+                current_level_4.put()
+            # loads correct question from within sequence 1
+            current_question_4 = Question.query().filter(Question.sequence == current_level_4.sequence).filter(Question.level_number == current_level_4.current_level).get()
+            if current_question_4:
+                sequence4_key = current_question_4.key.urlsafe()
+            else:
+                sequence4_key = None
         else:
             sequence1_key = None
+            sequence2_key = None
+            sequence3_key = None
+            sequence4_key = None
+
         logout_url = users.create_logout_url("/")
         login_url = users.create_login_url("/")
 
@@ -86,6 +142,9 @@ class MainPage(webapp2.RequestHandler):
             "logout_url" : logout_url,
             "current_person" : current_person,
             "sequence1_key" : sequence1_key,
+            "sequence2_key" : sequence2_key,
+            "sequence3_key" : sequence3_key,
+            "sequence4_key" : sequence4_key,
         }
         template = env.get_template("templates/home.html")
         self.response.write(template.render(templateVars))
