@@ -9,13 +9,13 @@ body {
 }
 
 #logo {
-  float: left;
+  position: absolute;
   border-radius: 10%;
   border: 1px solid black;
 }
 
 #title {
-  margin-left: 525px;
+  text-align: center;
 }
 
 #main {
@@ -37,7 +37,7 @@ body {
 }
 
 #questionTitle {
-  text-align: center;
+  margin-left: 10px;
   padding-top: 2px;
 }
 
@@ -51,7 +51,7 @@ body {
 }
 
 #answerTitle {
-  text-align: center;
+  margin-left: 10px;
   padding-top: 2px;
 }
 
@@ -66,12 +66,18 @@ body {
 }
 
 #incorrectMessage {
+  position: absolute;
+  margin-top: -30px;
+  margin-left: 350px;
   color: red;
   text-align: center;
 }
 
-#incorrectMessage {
-  color: red;
+#correctMessage {
+  position: absolute;
+  margin-top: -30px;
+  margin-left: 350px;
+  color: green;
   text-align: center;
 }
 
