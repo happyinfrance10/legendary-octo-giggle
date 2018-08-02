@@ -48,6 +48,7 @@ body {
   text-align: center;
   margin-left: 10px;
   margin-right: 10px;
+  padding: 0px 5px;
 }
 
 #answerTitle {
@@ -113,4 +114,28 @@ body {
 
 #correctMessage{
   visibility: hidden;
+}
+
+#firstHint{
+  visibility: hidden;
+  text-align: center;
+}
+
+#firstHintButton{
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  padding: 15px 17px;
+}
+
+#secondHint{
+  visibility: hidden;
+  text-align: center;
+}
+
+#secondHintButton{
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  padding: 15px 17px;
 }
