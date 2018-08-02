@@ -46,6 +46,8 @@ question2 = Question(sequence="1", question="(1/2) People these days are going t
 question2.put()
 question3 = Question(sequence="1", question="One fine day a couple years back (I don't know exactly how many years ago, I can't count), I used to work somewhere in the vicinity of the 145 and 161 highways. I moved out recently, but as I was leaving it seems like some other start-up is starting to take shape nearby. I can't bike, or I would use it...", answer = "LimeBike", level_number=3, hint ="Hint: The narrator can’t count in our base, but (s)he could count in another...", second_hint="After converting the highway numbers to a more readable form and searching for a bicycle startup in the area where they intersect, I would assume that there should be one name sticking out to your eyes...")
 question3.put()
+question4 = Question(sequence="4", question="Name the place where our founding fathers intended to revise the Articles of Confederation.", hint="This place is famous for the adoption of the Declaration of Independence in 1776", second_hint="It is presently called Independence Hall.", level_number=1, answer="Pennsylvania State House")
+question4.put()
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
