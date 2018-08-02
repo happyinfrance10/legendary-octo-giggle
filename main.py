@@ -18,7 +18,7 @@ env = jinja2.Environment(
 class Person(ndb.Model):
     name = ndb.StringProperty()
     email = ndb.StringProperty()
-    current_level = ndb.IntegerProperty()
+    # current_level = ndb.IntegerProperty()
 
 class Question(ndb.Model):
     sequence = ndb.StringProperty()
@@ -31,7 +31,7 @@ class Level(ndb.Model): #keeps track of player progress per sequence
     player_key = ndb.KeyProperty()
     current_level = ndb.IntegerProperty()
     sequence = ndb.StringProperty()
-    # correct = ndb.BooleanProperty()
+    finished = ndb.BooleanProperty()
 
 question1 = Question(sequence="1", question="1010100, nzccfn, 7DB", answer = "Sun Microsystems", location=ndb.GeoPt(0, 0), level_number=1)
 question1.put()
@@ -52,8 +52,16 @@ class MainPage(webapp2.RequestHandler):
         # tracks progress of player within sequence 1
         if current_person:
             current_level_1 = Level.query().filter(Level.player_key == current_person.key).filter(Level.sequence == "1").get()
+            # if the current user has no level progress, then create a new sequence
             if not current_level_1:
-                current_level_1 = Level(player_key = current_person.key, current_level=1, sequence="1")
+                # current_level_1 = Level(player_key = current_person.key, current_level=1, sequence="1")
+                current_level_1 = Level(player_key = current_person.key, current_level=1, sequence="1", finished=False)
+                current_level_1.put()
+            # if the current user finished the level, then reset progress
+            if (current_level_1.finished):
+                current_level_1.finished = False
+                current_level_1.current_level = 1
+                current_level_1.put()
 
             # loads correct question from within sequence 1
             current_question_1 = Question.query().filter(Question.sequence == current_level_1.sequence).filter(Question.level_number == current_level_1.current_level).get()
@@ -81,7 +89,7 @@ class CreateHandler(webapp2.RequestHandler):
         current_user = users.get_current_user()
         email = current_user.email()
         #2 Read/write from database
-        person = Person(name=name, email=email, current_level= 1)
+        person = Person(name=name, email=email)
         person.put()
         #3 Render a response
         time.sleep(2)
@@ -98,15 +106,16 @@ class LevelPage(webapp2.RequestHandler):
         question=key.get()
         email = users.get_current_user().email()
         person = Person.query().filter(Person.email==email).get()
+        current_level = Level.query().filter(Level.player_key == person.key).filter(Level.sequence == str(sequence_key)).get()
+
         answer_correct = self.request.get('answer_correct')
         # note to generalize to current sequence via the sequence_key next time.
 
         next_question = Question.query().filter(Question.sequence == str(sequence_key)).filter(Question.level_number == question.level_number+1).get()
 
         if (answer_correct):
-            person.current_level = question.level_number
-            person.put()
-        # get the current_level from the current_person object and modify it to increase 1
+            current_level.current_level = question.level_number
+            current_level.put()
 
         # use that same current_level (after increase) and the sequence name to filter for a question within
         # the question database
@@ -137,6 +146,15 @@ class ContributorsPage(webapp2.RequestHandler) :
 
 class EndGamePage(webapp2.RequestHandler) :
     def get(self) :
+        sequence_key = self.request.get('sequence')
+        # get the current_user with this sequence
+        current_user = users.get_current_user()
+        people = Person.query().fetch()
+        current_email = current_user.email()
+        current_person = Person.query().filter(Person.email == current_email).get()
+        current_level = Level.query().filter(Level.player_key == current_person.key).filter(Level.sequence == str(sequence_key)).get()
+        current_level.finished = True
+        current_level.put()
         template = env.get_template("templates/end_game.html")
         self.response.write(template.render())
 

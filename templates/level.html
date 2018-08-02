@@ -147,7 +147,7 @@
     if(user_correct.content && "{{next_question_key}}"!="null"){
       window.location.href = "/level?sequence={{sequence_key}}&key={{next_question_key}}&answer_correct=True";
     } else if(user_correct.content && "{{next_question_key}}"=="null"){
-      window.location.href = "/end_game";
+      window.location.href = "/end_game?sequence={{sequence_key}}";
     }
     //next_level.key should be passed in as a template variable in the main.py
     //check if user_correct.content is true, if so redirect to next level
