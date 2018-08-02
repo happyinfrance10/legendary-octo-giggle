@@ -9,8 +9,9 @@ body {
 }
 
 #logo {
-  float: left;
+  position: absolute;
   border-radius: 10%;
+  border: 1px solid black;
 }
 
 #title {
@@ -31,10 +32,13 @@ body {
 #googleMaps {
   border: 2px solid black;
   height: 300px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #questionTitle {
-
+  margin-left: 10px;
+  padding-top: 2px;
 }
 
 #question {
@@ -42,10 +46,13 @@ body {
   height: 125px;
   background-color: white;
   text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #answerTitle {
-
+  margin-left: 10px;
+  padding-top: 2px;
 }
 
 #answer {
@@ -54,6 +61,24 @@ body {
   background-color: white;
   display: flex;
   flex-direction: column;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#incorrectMessage {
+  position: absolute;
+  margin-top: -30px;
+  margin-left: 350px;
+  color: red;
+  text-align: center;
+}
+
+#correctMessage {
+  position: absolute;
+  margin-top: -30px;
+  margin-left: 350px;
+  color: green;
+  text-align: center;
 }
 
 #pac-input {
