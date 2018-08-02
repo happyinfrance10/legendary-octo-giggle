@@ -11,6 +11,7 @@ body {
 #logo {
   float: left;
   border-radius: 10%;
+  border: 1px solid black;
 }
 
 #title {
@@ -62,6 +63,16 @@ body {
   flex-direction: column;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+#incorrectMessage {
+  color: red;
+  text-align: center;
+}
+
+#incorrectMessage {
+  color: red;
+  text-align: center;
 }
 
 #pac-input {
