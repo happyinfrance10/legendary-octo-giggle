@@ -37,26 +37,31 @@
     <img id="logo" src="images/logo.jpg"></img>
 
     <div id="info">
-      <h2>Select a box to begin, <br>
-        or click 'About' to learn more<h2>
+
     </div>
 
     <br>
 
   <!-- Sequence options -->
     {% if current_person %}
+      <h2 id="info">Select a category to play, <br>
+        or click 'About' to learn more<h2>
       <span id="sequence1" class="sequence">
-        <img src="images/upgrade.png" height=250></img>
+        <h2 style="margin-top: -5px; margin-bottom: -1px;">Technology</h2>
+        <img src="images/upgrade.png" height=220></img>
       </span>
       <span id="sequence2" class="sequence">
-        <h2>Sequence 2</h2>
+        <h2 style="margin-top: -1px; margin-bottom: -1px;">Animals</h2>
+        <img src="images/wildmutt.png" height=220></img>
       </span>
       <br>
       <span id="sequence3" class="sequence">
-        <h2>Sequence 3</h2>
+        <h2 style="margin-top: -5px; margin-bottom: -1px;">Wildlife</h2>
+        <img src="images/wildvine.png" height=220></img>
       </span>
       <span id="sequence4" class="sequence">
-        <h2>Sequence 4</h2>
+        <h2 style="margin-top: -5px; margin-bottom: -1px;">History</h2>
+        <img src="images/snare_oh.png" height=220></img>
       </span>
     {% else %}
       <h1 id="sign_in">Sign in to begin playing!</h1>
