@@ -26,92 +26,18 @@
   <input id="pac-input" class="controls" type="text" placeholder="Search Box">
   <div id="googleMaps">
   </div>
-  <script>
-    function initAutocomplete() {
-  //     var map = new google.maps.Map(document.getElementById('map'), {
-  //   center: {
-  //     lat: -33.8688,
-  //     lng: 151.2195
-  //   },
-  //   zoom: 13,
-  //   mapTypeId: 'roadmap'
-  // });
-  var map = new google.maps.Map(document.getElementById('googleMaps'), {
-    center: {lat: 0, lng: 0},
-    zoom: 1,
-    mapTypeId: 'roadmap'
-  });
-
-  // Create the search box and link it to the UI element.
-  var input = document.getElementById('pac-input');
-  var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-  var infowindow = new google.maps.InfoWindow();
-  var service = new google.maps.places.PlacesService(map);
-  // Bias the SearchBox results towards current map's viewport.
-  map.addListener('bounds_changed', function() {
-    searchBox.setBounds(map.getBounds());
-  });
-
-  var markers = [];
-  // Listen for the event fired when the user selects a prediction and retrieve
-  // more details for that place.
-  searchBox.addListener('places_changed', function() {
-    var places = searchBox.getPlaces();
-
-    if (places.length == 0) {
-      return;
-    }
-
-    // Clear out the old markers.
-    markers.forEach(function(marker) {
-      marker.setMap(null);
-    });
-    markers = [];
-
-    // For each place, get the icon, name and location.
-    var bounds = new google.maps.LatLngBounds();
-    places.forEach(function(place) {
-      if (!place.geometry) {
-        console.log("Returned place contains no geometry");
-        return;
-      }
-      service.getDetails({
-        placeId: place.place_id
-      }, function(place, status) {
-        var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location
-        });
-        markers.push(marker);
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + place.formatted_address + '</div>');
-          infowindow.open(map, this);
-        });
-
-      });
-
-      if (place.geometry.viewport) {
-        // Only geocodes have viewport.
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
-      }
-    });
-    map.fitBounds(bounds);
-  });
-
-
-    }
-
-  </script>
+  <script src="javascript/map.js"></script>
   <!-- this is a demo key and won't work but i'm just using it for commits-->
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk&libraries=places&callback=initAutocomplete" async defer></script> -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkUOdZ5y7hMm0yrcCQoCvLwzdM6M8s5qk&libraries=places&callback=initAutocomplete" async defer></script>
   <!--this is the real API key-->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZSTilzBnsn8bkiup_XCNCwFzyUmoO5IU&libraries=places&callback=initAutocomplete" async defer></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZSTilzBnsn8bkiup_XCNCwFzyUmoO5IU&libraries=places&callback=initAutocomplete" async defer></script> -->
   <br>
-
+  <div id="firstHint">
+    <p>{{question.hint}}</p>
+  </div>
+  <div id="secondHint">
+    <p>{{question.second_hint}}</p>
+  </div>
   <div id="answerTitle">
     <h2>Solution:</h2>
   </div>
@@ -124,9 +50,13 @@
     <div id="submitButton">
       <button>Submit</button>
     </div>
-
+    <div id="firstHintButton">
+      <button>Hint</button>
+    </div>
+    <div id="secondHintButton">
+      <button>Another Hint</button>
+    </div>
   <meta id="answer_correct" name= "answer_correct" content="false">
-  <!--Insert following key in the level-->
   <div id="nextButton">
     <button>Next Question</button>
   </div>
@@ -138,9 +68,18 @@
   let incorrectMsg = document.getElementById('incorrectMessage');
   let correctMsg = document.getElementById('correctMessage');
   let nextBtn = document.getElementById('nextButton');
+
+  let firstHintBtn = document.getElementById('firstHintButton');
+  let secondHintBtn = document.getElementById('secondHintButton');
+
+  let firstHt = document.getElementById('firstHint');
+  let secondHt = document.getElementById('secondHint');
+
   submitBtn.addEventListener('click', e =>{
     if(user_answer.value == "{{question.answer}}"){
       incorrectMsg.style.visibility = "hidden";
+      secondHintBtn.style.visibility = "hidden";
+      firstHintBtn.style.visibility = "hidden";
       submitBtn.style.visibility= "hidden";
       nextBtn.style.visibility="visible";
       correctMsg.style.visibility="visible";
@@ -150,7 +89,11 @@
     else {
       incorrectMsg.style.visibility="visible";
       answer.style.borderColor = "red";
-
+      if(firstHintBtn.style.visibility=="visible"){
+        secondHintBtn.style.visibility = "visible";
+      } else {
+        firstHintBtn.style.visibility = "visible";
+      }
     }
   });
   nextBtn.addEventListener('click', e =>{
@@ -161,6 +104,14 @@
     }
     //next_level.key should be passed in as a template variable in the main.py
     //check if user_correct.content is true, if so redirect to next level
+  });
+
+  firstHintBtn.addEventListener('click', e =>{
+    firstHt.style.visibility = "visible";
+  });
+
+  secondHintBtn.addEventListener('click', e =>{
+    secondHt.style.visibility = "visible";
   });
   // query selector on submit button.
   // when answers are correct, toggle the appearance of the nextButton id, and submit id disappears.
