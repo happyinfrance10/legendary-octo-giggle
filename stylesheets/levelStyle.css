@@ -43,7 +43,7 @@ body {
 
 #question {
   border: 2px solid black;
-  height: 125px;
+  height: 150px;
   background-color: white;
   text-align: center;
   margin-left: 10px;
@@ -118,6 +118,7 @@ body {
 #firstHint{
   visibility: hidden;
   text-align: center;
+  padding: 0px 10px;
 }
 
 #firstHintButton{
@@ -130,6 +131,7 @@ body {
 #secondHint{
   visibility: hidden;
   text-align: center;
+  padding: 0px 10px;
 }
 
 #secondHintButton{
