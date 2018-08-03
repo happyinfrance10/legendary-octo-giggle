@@ -14,7 +14,6 @@ let sequences = document.querySelectorAll("span");
 });
 
 let sequence1_key = document.getElementById('sequence1_key');
-
 let sequence1 = document.querySelector("#sequence1");
 sequence1.addEventListener("click", e => {
   console.log("click");

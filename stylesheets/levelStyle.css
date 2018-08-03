@@ -94,17 +94,31 @@ body {
   width: 500px;
 }
 
-#submitButton {
-  display: flex;
-  justify-content: center;
+#submitButton{
   padding: 15px 32px;
 }
 
-#nextButton {
-  visibility: hidden;
-  display: flex;
-  justify-content: center;
+#submitButton button{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height:25px;
+  font-size: 14px;
+}
+
+#nextButton{
   padding: 15px 32px;
+  visibility: hidden;
+}
+
+#nextButton button{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height:25px;
+  font-size: 14px;
 }
 
 #incorrectMessage{
@@ -122,12 +136,18 @@ body {
 }
 
 #firstHintButton{
+  padding: 15px 32px;
   visibility: hidden;
-  display: flex;
-  justify-content: center;
-  padding: 15px 17px;
 }
 
+#firstHintButton button{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height:25px;
+  font-size: 14px;
+}
 #secondHint{
   visibility: hidden;
   text-align: center;
@@ -135,8 +155,15 @@ body {
 }
 
 #secondHintButton{
+  padding: 15px 32px;
   visibility: hidden;
-  display: flex;
-  justify-content: center;
-  padding: 15px 17px;
+}
+
+#secondHintButton button{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  height:25px;
+  font-size: 14px;
 }
