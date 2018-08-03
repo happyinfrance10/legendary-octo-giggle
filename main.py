@@ -64,9 +64,9 @@ question3_2 = Question(sequence = "3", question = "I know of a place whose bound
 question3_2.put()
 question3_3 = Question(sequence = "3", question = "They say when you’re lost, follow the stream, but this one is too long to follow all the way. I hear this water has two colors. What’s it called?", answer = "Nile River", level_number = 3, hint = "Try looking in Africa", second_hint = "It's the primary water source of Egypt and Sudan.")
 question3_3.put()
-question3_4 = Question(sequence = "3", question = "", answer = "", level_number = 4, hint = "", second_hint = "")
+question3_4 = Question(sequence = "3", question = "Last March, I visited Scotland and saw a hexagon formed from lava flow. I was only able to visit because the water level was low. Where was I?", answer = "Fingal's Cave", level_number = 4, hint = "It is a cave.", second_hint = "Its upper and lower surfaces are cooled lava.")
 question3_4.put()
-question3_5 = Question(sequence = "3", question = "", answer = "", level_number = 5, hint = "", second_hint = "")
+question3_5 = Question(sequence = "3", question = "I’ve never felt as cold as I did as I visited this place in Asia. It was so tall, and I couldn’t breathe…", answer = "Mount Everest", level_number = 5, hint = "It is a mountain near Nepal and China.", second_hint = "It is miles tall.")
 question3_5.put()
 
 question4_1 = Question(sequence="4", question="Name the place where our founding fathers intended to revise the Articles of Confederation.", hint="This place is famous for the adoption of the Declaration of Independence in 1776", second_hint="It is presently called Independence Hall.", level_number=1, answer="Pennsylvania State House")
