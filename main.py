@@ -47,7 +47,7 @@ question1_2.put()
 question1_3 = Question(sequence="1", question="One fine day a couple years back (I don't know exactly how many years ago, I can't count), I used to work somewhere in the vicinity of the 145 and 161 highways. I moved out recently, but as I was leaving it seems like some other start-up is starting to take shape nearby. I don't bike, and can't use it. Thus, I don't recall the name. Do you?", answer = "LimeBike", level_number=3, hint ="Hint: The narrator can’t count in our base, but (s)he could count in another...", second_hint="After converting the highway numbers to a more readable form and searching for a bicycle startup in the area where they intersect, I would assume that there should be one name sticking out to your eyes...")
 question1_3.put()
 
-question2_1 = Question(sequence = "2", question = "Find the address of the world's first zoo.", answer = "Maxingstraße 13b, 1130 Wien, Austria", level_number = 1, hint = "Google is your friend.", second_hint = "Located in Vienna, Austria (well, at least it's now called that)")
+question2_1 = Question(sequence = "2", question = "Find the address of the world's first zoo.", answer = "Maxingstraße 13b, 1130 Wien, Austria", level_number = 1, second_hint = "Google is your friend.", hint = "Located in Vienna, Austria (well, at least it's now called that)")
 question2_1.put()
 question2_2 = Question(sequence = "2", question = "Find the address of a zoo in the United States that opened in 1899.", answer = "2300 Southern Blvd, Bronx, NY 10460, USA", level_number = 2, hint = "The first zoo in the western hemisphere that had snow leopards.", second_hint = "Located in New York")
 question2_2.put()
