@@ -14,14 +14,11 @@ let sequences = document.querySelectorAll("span");
 });
 
 let sequence1_key = document.getElementById('sequence1_key');
-<<<<<<< HEAD
-=======
 let sequence2_key = document.getElementById('sequence2_key');
 let sequence3_key = document.getElementById('sequence3_key');
 let sequence4_key = document.getElementById('sequence4_key');
 
 
->>>>>>> 92759943ca2e1a8a1151ec18896df7250f7f492a
 let sequence1 = document.querySelector("#sequence1");
 sequence1.addEventListener("click", e => {
   window.location.href = "/level?sequence=1&key="+sequence1_key.content;
